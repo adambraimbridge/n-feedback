@@ -1,0 +1,7 @@
+{
+  "ignoreRoot": [],
+  "watch": [
+    "demos"
+  ],
+  "ext": "js json html"
+}

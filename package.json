@@ -1,0 +1,30 @@
+{
+  "name": "@financial-times/n-feedback",
+  "version": "0.0.0",
+  "description": "component to display on-site surveys",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Financial-Times/n-feedback.git"
+  },
+  "license": "MIT",
+  "scripts": {
+    "commit": "commit-wizard",
+    "precommit": "node_modules/.bin/secret-squirrel",
+    "prepush": "make verify -j3",
+    "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg"
+  },
+  "devDependencies": {
+    "@financial-times/n-gage": "^1.8.5",
+    "@financial-times/n-internal-tool": "^1.2.3",
+    "bower": "^1.8.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "lintspaces-cli": "^0.6.0",
+    "mocha": "^3.4.1",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.17.3",
+    "npm-prepublish": "^1.2.2",
+    "proxyquire": "^1.8.0"
+  }
+}

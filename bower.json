@@ -1,0 +1,16 @@
+{
+	"name": "n-feedback",
+	"homepage": "https://github.com/financial-times/n-feedback",
+	"description": "component to display on-site surveys",
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components",
+		"test",
+		"tests"
+	],
+	"main": "index.js",
+	"devDependencies": {
+		"n-ui-foundations": "^2.0.0"
+  }
+}
