@@ -1,5 +1,25 @@
+$o-overlay-is-silent: false;
+@import 'n-ui-foundations/main';
+@import 'o-overlay/main';
+
 .feedback__container {
 	width: 100%;
 	min-height: 50px;
 	background-color: #0D7680;
+	padding: 30px;
+}
+
+.feedback__question {
+	@include oTypographySans(4);
+	color: getColor('white');
+	margin-top: 0;
+}
+
+.feedback__prompt {
+	width: 16px;
+	border: 2px solid teal;
+	writing-mode: tb;
+	padding: 10px;
+	position: sticky;
+	right: 0;
 }

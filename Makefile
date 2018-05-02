@@ -16,6 +16,8 @@ demo-build:
 	@mkdir bower_components/n-feedback
 	@cp template.html bower_components/n-feedback/template.html
 	@cp main.scss bower_components/n-feedback/main.scss
+	@cp index.js bower_components/n-feedback/index.js
+	@webpack --mode development
 	@node-sass demos/src/demo.scss public/main.css --include-path bower_components
 	@$(DONE)
 

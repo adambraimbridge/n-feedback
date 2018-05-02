@@ -4,6 +4,7 @@ bower_components/
 .editorconfig
 .eslintrc.js
 /public/main.css
+/public/main.js
 /pa11y_screenCapture/*
 *.env*
 node_modules
