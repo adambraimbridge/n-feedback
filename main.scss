@@ -1,25 +1,110 @@
 $o-overlay-is-silent: false;
+$o-buttons-is-silent: false;
+$o-forms-is-silent: false;
 @import 'n-ui-foundations/main';
+@import 'o-buttons/main';
+@import 'o-forms/main';
 @import 'o-overlay/main';
 
 .feedback__container {
-	width: 100%;
-	min-height: 50px;
-	background-color: #0D7680;
-	padding: 30px;
+	.feedback__trigger {
+		z-index: 1000;
+		display: block;
+		width: 100px;
+		height: 35px;
+		position: fixed;
+		right: 0px;
+		bottom: 200px;
+		margin-right: -39px;
+		color: getColor('white');
+		background: getColor('teal');
+		border: 1px solid getColor('teal');
+		transform: rotate(-90deg);
+		@include oTypographySansBold(0);
+
+		span {
+			display: block;
+			margin-top: -7px;
+		}
+	}
 }
 
-.feedback__question {
-	@include oTypographySans(4);
-	color: getColor('white');
-	margin-top: 0;
+
+// overriding o-overlay styles and positioning the feedback box
+.o-overlay--feedback-overlay {
+	/* Resetting the inline values first */
+	left: inherit!important;
+	margin-left: inherit!important;
+	margin-top: inherit!important;
+	top: inherit!important;
+
+	/* Actual styles */
+	right: 42px;
+	bottom: 36px;
+	width: 300px;
+	height: 268px;
+	z-index: 11;
 }
 
-.feedback__prompt {
-	width: 16px;
-	border: 2px solid teal;
-	writing-mode: tb;
-	padding: 10px;
-	position: sticky;
-	right: 0;
+// Hide on ad overlap
+@media (max-width: 1000px) and (min-width: 980px) {
+	.feedback__container {
+		display: none;
+	}
+}
+
+.o-overlay--feedback-overlay .o-overlay__content {
+	@include oTypographySans(0);
+
+	.feedback__question-header {
+		@include oTypographySans(0);
+		margin: 0 0 1em 0;
+	}
+
+	.feedback__question-text {
+		display: none;
+	}
+
+	.feedback__question-text-entry {
+		textarea {
+			min-height: 126px;
+		}
+	}
+
+	.feedback__question-radio {
+		border-top: 1px solid getColor('slate');
+		border-bottom: 1px solid getColor('slate');
+		padding: 1em 0 0.4em 0;
+
+		legend {
+			@include oNormaliseVisuallyHidden;
+		}
+
+		.feedback__question-radio__container {
+			display: flex;
+			margin-top: 0;
+			padding: 0 0 10px 10px;
+		}
+
+		.feedback__question-radio__choice-container {
+			min-width: 53px;
+		}
+
+		label {
+			span {
+				display: block;
+				margin-left: -40px;
+				margin-top: 30px;
+			}
+		}
+
+		.hidden-label span {
+			@include oNormaliseVisuallyHidden;
+		}
+	}
+
+	.feedback__survey__button-bar {
+		text-align: right;
+		margin-bottom: 0;
+	}
 }
