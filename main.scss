@@ -114,6 +114,16 @@ $o-icons-is-silent: false;
 .o-overlay--feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 
+	.feedback__survey__close-button {
+		border-bottom: none;
+		margin-top: -10px;
+		margin-right: -10px;
+
+		span {
+			@include oNormaliseVisuallyHidden;
+		}
+	}
+
 	.feedback__question-header {
 		@include oTypographySans(0);
 		margin: 0 0 1em 0;
@@ -141,7 +151,11 @@ $o-icons-is-silent: false;
 		.feedback__question-radio__container {
 			display: flex;
 			margin-top: 0;
-			padding: 0 0 10px 30px;
+			padding: 0 0 10px 10px;
+
+			@include oGridRespondTo($until: M){
+				padding: 0 0 10px 30px;
+			}
 		}
 
 		.feedback__question-radio__choice-container {

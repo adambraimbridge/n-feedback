@@ -65,7 +65,7 @@ function toggleOverlay (overlay){
 	overlay[ overlay.visible ? 'close' : 'open' ]();
 }
 
-function hideFeedbackButton(){
+function hideFeedbackButton (){
 	document.querySelector('.feedback__container').classList.add('hidden');
 }
 
@@ -79,9 +79,6 @@ module.exports.init = () => {
 
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
-			nested: true,
-			preventclosing: false,
-			parentnode: isMobile ? 'body' : '.feedback__overlay__container',
 			fullscreen: isMobile
 		});
 

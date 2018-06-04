@@ -75,6 +75,9 @@ function buildSurvey (surveyData){
 	};
 
 	const surveyHTML = [`<div class="feedback__survey">
+												<a class="feedback__survey__close-button o-overlay__close" href="#void">
+													<span>I don't want to give feedback</span>
+												</a>
 												<form class="feedback__survey__wrapper-form">
 													<input type="hidden" name="surveyId" value="SV_bECh88bz44kFmq9" />`];
 
