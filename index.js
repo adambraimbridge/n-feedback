@@ -45,6 +45,7 @@ function setBehaviour (overlay){
 			request.open('POST', '//local.ft.com:3002/');
 			request.send(generateResponse(overlay));
 			overlay.close();
+			hideFeedbackButton();
 		});
 	});
 }
@@ -64,6 +65,10 @@ function toggleOverlay (overlay){
 	overlay[ overlay.visible ? 'close' : 'open' ]();
 }
 
+function hideFeedbackButton(){
+	document.querySelector('.feedback__container').classList.add('hidden');
+}
+
 module.exports.init = () => {
 	const surveyId = 'SV_bECh88bz44kFmq9';
 	getSurveyData(surveyId).then( surveyData => {
@@ -74,7 +79,7 @@ module.exports.init = () => {
 
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
-			nested: !isMobile,
+			nested: true,
 			preventclosing: false,
 			parentnode: isMobile ? 'body' : '.feedback__overlay__container',
 			fullscreen: isMobile
@@ -86,7 +91,7 @@ module.exports.init = () => {
 
 		document.querySelector('.feedback__container__close-button').addEventListener('click', event => {
 			event.preventDefault();
-			document.querySelector('.feedback__container').classList.add('hidden');
+			hideFeedbackButton();
 		});
 
 		document.addEventListener('oOverlay.ready', () => {

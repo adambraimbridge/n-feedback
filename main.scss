@@ -62,15 +62,16 @@ $o-icons-is-silent: false;
 // Mobile only styles
 @include oGridRespondTo($until: M){
 	.o-overlay--feedback-overlay {
+		top: 0;
 		z-index: 110;
 	}
 
 	.feedback__container {
-		position: relative;
 		display: block;
 		background: getColor('white');
 		text-align: center;
 		padding: 1em;
+		margin: 0 10px;
 
 		.feedback__survey-trigger {
 			@include oButtons(default, primary);
@@ -94,9 +95,7 @@ $o-icons-is-silent: false;
 	.feedback__container__close-button {
 		@include oIconsGetIcon('cross', oColorsGetPaletteColor('black'), 20);
 		border: none;
-		position: absolute;
-		right: 8px;
-		top: 6px;
+		float: right;
 
 		span {
 			@include oNormaliseVisuallyHidden;
@@ -142,11 +141,11 @@ $o-icons-is-silent: false;
 		.feedback__question-radio__container {
 			display: flex;
 			margin-top: 0;
-			padding: 0 0 10px 10px;
+			padding: 0 0 10px 30px;
 		}
 
 		.feedback__question-radio__choice-container {
-			min-width: 53px;
+			flex-grow: 1;
 		}
 
 		label {
