@@ -2,8 +2,8 @@ const Overlay = require('o-overlay');
 const surveyBuilder = require('./survey-builder');
 
 async function getSurveyData ( surveyId ){
-	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
+	const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
+	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
 	return fetch(surveyDataURL).then( res => {
 		return res.json();
 	}).catch( err => {
@@ -83,6 +83,11 @@ module.exports.init = () => {
 		trigger.addEventListener('click', () => {
 			toggleOverlay(feedbackOverlay);
 		}, true);
+
+		document.querySelector('.feedback__container__close-button').addEventListener('click', event => {
+			event.preventDefault();
+			document.querySelector('.feedback__container').classList.add('hidden');
+		});
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay);
