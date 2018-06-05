@@ -9,7 +9,7 @@ unit-test:
 
 test:
 	make verify
-	make unit-test
+	#make unit-test
 
 demo-build:
 	@rm -rf bower_components/n-feedback
