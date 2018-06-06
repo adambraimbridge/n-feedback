@@ -47,6 +47,11 @@ function setBehaviour (overlay){
 			hideFeedbackButton();
 		});
 	});
+
+	document.querySelector('.feedback__survey__close-button').addEventListener('click', event => {
+		event.preventDefault();
+		toggleOverlay(overlay);
+	});
 }
 
 function generateResponse (overlay){
