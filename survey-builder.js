@@ -74,6 +74,10 @@ function buildSurvey (surveyData){
 		question: buildQuestion
 	};
 
+	if( surveyData && surveyData.length === 0 ){
+		throw new Error('Bad survey data');
+	}
+
 	const surveyHTML = [`<div class="feedback__survey">
 												<a class="feedback__survey__close-button o-overlay__close" href="#void">
 													<span>I don't want to give feedback</span>

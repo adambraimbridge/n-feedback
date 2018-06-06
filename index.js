@@ -3,8 +3,8 @@ const surveyBuilder = require('./survey-builder');
 
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
-	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
+	const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
+	// const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
 	return fetch(surveyDataURL).then( res => {
 		return res.json();
 	}).catch( () => {
@@ -71,8 +71,17 @@ function hideFeedbackButton (){
 module.exports.init = () => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	getSurveyData(surveyId).then( surveyData => {
-		const html = surveyBuilder.buildSurvey(surveyData);
+		const container = document.querySelector('.feedback__container');
 		const trigger = document.querySelector('.feedback__container .feedback__survey-trigger');
+
+		let html = '';
+		try {
+			html = surveyBuilder.buildSurvey(surveyData);
+		}catch( err ){
+			container.classList.add('hidden');
+			trigger.classList.add('hidden');
+			return false;
+		};
 
 		const desktopPrompt = document.querySelector('.feedback__desktop__prompt');
 		let isMobile = false;
