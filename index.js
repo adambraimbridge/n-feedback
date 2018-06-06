@@ -3,7 +3,8 @@ const surveyBuilder = require('./survey-builder');
 
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
+	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
+	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
 	return fetch(surveyDataURL).then( res => {
 		return res.json();
 	}).catch( () => {
@@ -72,8 +73,13 @@ module.exports.init = () => {
 	getSurveyData(surveyId).then( surveyData => {
 		const html = surveyBuilder.buildSurvey(surveyData);
 		const trigger = document.querySelector('.feedback__container .feedback__survey-trigger');
-		const isMobile = !!window.getComputedStyle(document.querySelector('.feedback__desktop__promt'))
-																.getPropertyValue('display') !== 'none';
+
+		const desktopPrompt = document.querySelector('.feedback__desktop__prompt');
+		let isMobile = false;
+		if(desktopPrompt){
+			isMobile = !!window.getComputedStyle(document.querySelector('.feedback__desktop__prompt'))
+													.getPropertyValue('display') !== 'none';
+		}
 
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
