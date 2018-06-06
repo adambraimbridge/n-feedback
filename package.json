@@ -31,6 +31,7 @@
     "webpack-cli": "^2.0.15"
   },
   "dependencies": {
+    "@financial-times/n-logger": "^5.6.4",
     "handlebars": "^4.0.11"
   }
 }

@@ -23,7 +23,7 @@ function buildQuestion (question){
 	if( questionType in questionBuilderMap ){
 		return questionBuilderMap[questionType](question);
 	}else{
-		console.log('Feedback: buildQuestion - question type not defined: ', questionType, question);
+		// console.log('Feedback: buildQuestion - question type not defined: ', questionType, question);
 	}
 
 	return '';
@@ -92,7 +92,7 @@ function buildSurvey (surveyData){
 				const questionHTML = builderMap[blockType]( question );
 				blockHTML.push(questionHTML);
 			}else{
-				console.log('Feedback: Qualtrics survey question type not defined: ', blockType, question);
+				// console.log('Feedback: Qualtrics survey question type not defined: ', blockType, question);
 			}
 		});
 

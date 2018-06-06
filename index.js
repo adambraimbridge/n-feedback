@@ -2,12 +2,12 @@ const Overlay = require('o-overlay');
 const surveyBuilder = require('./survey-builder');
 
 async function getSurveyData ( surveyId ){
-	const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
+	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
+	const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
 	return fetch(surveyDataURL).then( res => {
 		return res.json();
-	}).catch( err => {
-		console.error('getSurveyData: XHR: ', err);
+	}).catch( () => {
+		// console.error('getSurveyData: XHR: ', err);
 	});
 }
 
@@ -25,7 +25,7 @@ function setBehaviour (overlay){
 			const nextBlock = document.querySelector(nextBlockSelector);
 
 			if( !nextBlock ){
-				console.error(`Next button: next block '${nextBlockSelector}' not found`);
+				// console.error(`Next button: next block '${nextBlockSelector}' not found`);
 				return false;
 			}
 
@@ -38,8 +38,6 @@ function setBehaviour (overlay){
 	submitButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();
-
-			const current = event.target;
 
 			const request = new XMLHttpRequest();
 			request.open('POST', '//local.ft.com:3002/');
@@ -70,7 +68,7 @@ function hideFeedbackButton (){
 }
 
 module.exports.init = () => {
-	const surveyId = 'SV_bECh88bz44kFmq9';
+	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	getSurveyData(surveyId).then( surveyData => {
 		const html = surveyBuilder.buildSurvey(surveyData);
 		const trigger = document.querySelector('.feedback__container .feedback__survey-trigger');
@@ -93,6 +91,6 @@ module.exports.init = () => {
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay);
-		 }, true);
+		}, true);
 	});
 };
