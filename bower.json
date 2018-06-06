@@ -10,7 +10,10 @@
 		"tests"
 	],
 	"main": "index.js",
-	"devDependencies": {
-		"n-ui-foundations": "^2.0.0"
+	"dependencies": {
+    "n-ui-foundations": "^2.0.0",
+    "o-overlay": "^2.4.2",
+    "o-buttons": "^5.11.6",
+    "o-forms": "^5.7.0"
   }
 }
