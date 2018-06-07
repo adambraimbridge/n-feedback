@@ -47,11 +47,6 @@ function setBehaviour (overlay){
 			hideFeedbackButton();
 		});
 	});
-
-	document.querySelector('.feedback__survey__close-button').addEventListener('click', event => {
-		event.preventDefault();
-		toggleOverlay(overlay);
-	});
 }
 
 function generateResponse (overlay){
@@ -96,7 +91,9 @@ module.exports.init = () => {
 
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
-			fullscreen: isMobile
+			fullscreen: isMobile,
+			zindex: 110,
+			customclose: '.feedback__survey__close-button'
 		});
 
 		trigger.addEventListener('click', () => {
