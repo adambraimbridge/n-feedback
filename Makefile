@@ -5,11 +5,11 @@ node_modules/@financial-times/n-gage/index.mk:
 -include node_modules/@financial-times/n-gage/index.mk
 
 unit-test:
-	mocha 'tests/**/*.spec.js' --inline-diffs
+	mocha 'test/**/*.spec.js' --inline-diffs
 
 test:
 	make verify
-	#make unit-test
+	make unit-test
 
 demo-build:
 	@rm -rf bower_components/n-feedback
