@@ -11,6 +11,6 @@ describe('getQuestions()', () => {
     });
 
     it('should only include the info we need for the questions in the survey', () => {
-        expect(questions[0]).to.have.all.keys('questionText', 'questionId');
+        expect(questions[0]).to.have.all.keys('text', 'id');
     });
 });
