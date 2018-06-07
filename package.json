@@ -23,6 +23,7 @@
     "eslint": "^3.19.0",
     "lintspaces-cli": "^0.6.0",
     "mocha": "^3.4.1",
+    "nock": "^9.3.1",
     "node-sass": "^4.5.3",
     "nodemon": "^1.17.3",
     "npm-prepublish": "^1.2.2",
