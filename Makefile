@@ -18,6 +18,7 @@ demo-build:
 	@cp main.scss bower_components/n-feedback/main.scss
 	@cp index.js bower_components/n-feedback/index.js
 	@cp survey-builder.js bower_components/n-feedback/survey-builder.js
+	@cp -r src/ bower_components/n-feedback/src/
 	@webpack --mode development
 	@node-sass demos/src/demo.scss public/main.css --include-path bower_components
 	@$(DONE)
