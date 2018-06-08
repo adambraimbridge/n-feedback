@@ -14,11 +14,10 @@ test:
 demo-build:
 	@rm -rf bower_components/n-feedback
 	@mkdir bower_components/n-feedback
-	@cp template.html bower_components/n-feedback/template.html
 	@cp main.scss bower_components/n-feedback/main.scss
 	@cp index.js bower_components/n-feedback/index.js
-	@cp survey-builder.js bower_components/n-feedback/survey-builder.js
 	@cp -r src/ bower_components/n-feedback/src/
+	@cp -r templates/ bower_components/n-feedback/templates/
 	@webpack --mode development
 	@node-sass demos/src/demo.scss public/main.css --include-path bower_components
 	@$(DONE)

@@ -1,5 +1,5 @@
 const Overlay = require('o-overlay');
-const surveyBuilder = require('./survey-builder');
+const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
 
 async function getSurveyData ( surveyId ){
