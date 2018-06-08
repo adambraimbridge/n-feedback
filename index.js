@@ -91,15 +91,9 @@ module.exports.init = () => {
 			return false;
 		};
 
-		const desktopPrompt = document.querySelector('.feedback__desktop__prompt');
-		let isMobile = false;
-		if(desktopPrompt){
-			isMobile = window.getComputedStyle(desktopPrompt).getPropertyValue('display') !== 'none';
-		}
-
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
-			fullscreen: isMobile,
+			fullscreen: true,
 			zindex: 110,
 			customclose: '.feedback__survey__close-button'
 		});
