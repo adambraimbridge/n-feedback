@@ -113,7 +113,7 @@ function buildSurvey (surveyData) {
 		if ( surveyData.length - 1 > blockId ) {
 			blockHTML.push(
 				`<p class="feedback__survey__button-bar">
-					<button class="o-buttons o-buttons--primary feedback__survey-next"
+					<button class="feedback__primary-button feedback__survey-next"
 						data-survey-next="feedback__survey-block-${blockId+1}">
 						Next
 					</button>
@@ -122,7 +122,7 @@ function buildSurvey (surveyData) {
 		} else {
 			blockHTML.push(
 				`<p class="feedback__survey__button-bar">
-					<button class="o-buttons o-buttons--primary feedback__survey-submit">
+					<button class="feedback__primary-button feedback__survey-submit">
 						Submit
 					</button>
 				</p>`

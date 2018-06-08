@@ -1,5 +1,4 @@
 $o-overlay-is-silent: false;
-$o-buttons-is-silent: false;
 $o-forms-is-silent: false;
 $o-icons-is-silent: false;
 @import 'n-ui-foundations/main';
@@ -74,7 +73,6 @@ $o-icons-is-silent: false;
 		margin: 0 10px;
 
 		.feedback__survey-trigger {
-			@include oButtons(default, primary);
 			margin-bottom: 10px;
 
 			span {
@@ -113,6 +111,10 @@ $o-icons-is-silent: false;
 
 .o-overlay--feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
+
+	.feedback__primary-button {
+		@include oButtons(default, primary);
+	}
 
 	.feedback__survey__close-button {
 		border-bottom: none;
