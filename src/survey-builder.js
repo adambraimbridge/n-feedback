@@ -1,17 +1,17 @@
 
-function buildHeader (question){
+function buildHeader (question) {
 	return `<h3 class="feedback__question-header">${question.questionText}</h3>`;
 }
 
-function buildText (question){
+function buildText (question) {
 	return `<p class="feedback__question-text">${question.questionText}</p>`;
 }
 
-function buildFooter (question){
+function buildFooter (question) {
 	return `<p class="feedback__question-footer">${question.questionText}</p>`;
 }
 
-function buildQuestion (question){
+function buildQuestion (question) {
 	const questionBuilderMap = {
 		// MC - Multiple Choice
 		'MC': buildMultipleChoiceQuestion,
@@ -20,16 +20,16 @@ function buildQuestion (question){
 	};
 
 	const questionType = question.questionType.type;
-	if( questionType in questionBuilderMap ){
+	if ( questionType in questionBuilderMap ) {
 		return questionBuilderMap[questionType](question);
-	}else{
+	} else {
 		// console.log('Feedback: buildQuestion - question type not defined: ', questionType, question);
 	}
 
 	return '';
 }
 
-function buildMultipleChoiceQuestion (question){
+function buildMultipleChoiceQuestion (question) {
 	const html = [`<fieldset class="feedback__question-radio o-forms">
 									<legend>${question.questionText}</legend>
 									<div class="feedback__question-radio__container o-forms__group">`]; // fieldsets can't display: flex
@@ -37,7 +37,7 @@ function buildMultipleChoiceQuestion (question){
 	Object.entries(question.choices).forEach( ([choiceId, choice], current, choices) => {
 		let textVisibility = '';
 		// if not the first or the last element
-		if( !(choiceId === choices[0][0] || choiceId === choices[choices.length-1][0]) ){
+		if ( !(choiceId === choices[0][0] || choiceId === choices[choices.length-1][0]) ) {
 			textVisibility = 'hidden-label';
 		}
 		const fieldId = `choice-${choiceId}-${~~(Math.random()*0xffff)}`;
@@ -55,7 +55,7 @@ function buildMultipleChoiceQuestion (question){
 	return html.join('\n');
 }
 
-function buildTextEntryQuestion (question){
+function buildTextEntryQuestion (question) {
 	const fieldId = `text-${question.questionId}-${~~(Math.random()*0xffff)}`;
 
 	const html = `<p class="feedback__question-text-entry o-forms">
@@ -66,7 +66,7 @@ function buildTextEntryQuestion (question){
 	return html;
 }
 
-function buildSurvey (surveyData){
+function buildSurvey (surveyData) {
 	const builderMap = {
 		header: buildHeader,
 		footer: buildFooter,
@@ -74,7 +74,7 @@ function buildSurvey (surveyData){
 		question: buildQuestion
 	};
 
-	if( surveyData && surveyData.length === 0 ){
+	if ( surveyData && surveyData.length === 0 ) {
 		throw new Error('Bad survey data');
 	}
 
@@ -101,7 +101,7 @@ function buildSurvey (surveyData){
 		});
 
 		// if this not the last block on the survey
-		if( surveyData.length - 1 > blockId ){
+		if ( surveyData.length - 1 > blockId ) {
 			blockHTML.push(`<p class="feedback__survey__button-bar">
 												<button class="o-buttons o-buttons--primary feedback__survey-next"
 																data-survey-next="feedback__survey-block-${blockId+1}">
@@ -109,7 +109,7 @@ function buildSurvey (surveyData){
 												</button>
 											</p>`
 			);
-		}else{
+		} else {
 			blockHTML.push(`<p class="feedback__survey__button-bar">
 												<button class="o-buttons o-buttons--primary feedback__survey-submit">
 													Submit
