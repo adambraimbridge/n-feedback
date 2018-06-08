@@ -5,11 +5,11 @@ node_modules/@financial-times/n-gage/index.mk:
 -include node_modules/@financial-times/n-gage/index.mk
 
 unit-test:
-	mocha 'tests/**/*.spec.js' --inline-diffs
+	mocha 'test/**/*.spec.js' --inline-diffs
 
 test:
 	make verify
-	#make unit-test
+	make unit-test
 
 demo-build:
 	@rm -rf bower_components/n-feedback
@@ -18,6 +18,7 @@ demo-build:
 	@cp main.scss bower_components/n-feedback/main.scss
 	@cp index.js bower_components/n-feedback/index.js
 	@cp survey-builder.js bower_components/n-feedback/survey-builder.js
+	@cp -r src/ bower_components/n-feedback/src/
 	@webpack --mode development
 	@node-sass demos/src/demo.scss public/main.css --include-path bower_components
 	@$(DONE)

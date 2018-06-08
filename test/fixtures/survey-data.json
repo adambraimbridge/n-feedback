@@ -1,0 +1,90 @@
+[
+    {
+        "description": "Default Question Block",
+        "questions": [
+            {
+                "questionType": {
+                    "type": "MC",
+                    "selector": "SAVR",
+                    "subSelector": "TX"
+                },
+                "questionText": "How easy was your visit to FT.com today?",
+                "questionLabel": null,
+                "validation": {
+                    "doesForceResponse": false
+                },
+                "questionName": "Q1",
+                "choices": {
+                    "1": {
+                        "recode": "1",
+                        "description": "1 - Easy",
+                        "choiceText": "1 - Easy",
+                        "imageDescription": null,
+                        "variableName": null,
+                        "analyze": true
+                    },
+                    "2": {
+                        "recode": "2",
+                        "description": "2",
+                        "choiceText": "2",
+                        "imageDescription": null,
+                        "variableName": null,
+                        "analyze": true
+                    },
+                    "3": {
+                        "recode": "3",
+                        "description": "3",
+                        "choiceText": "3",
+                        "imageDescription": null,
+                        "variableName": null,
+                        "analyze": true
+                    },
+                    "4": {
+                        "recode": "4",
+                        "description": "4",
+                        "choiceText": "4",
+                        "imageDescription": null,
+                        "variableName": null,
+                        "analyze": true
+                    },
+                    "5": {
+                        "recode": "5",
+                        "description": "5 - Difficult",
+                        "choiceText": "5 - Difficult",
+                        "imageDescription": null,
+                        "variableName": null,
+                        "analyze": true
+                    }
+                },
+                "questionId": "QID6"
+            }
+        ]
+    },
+    {
+        "description": "Block 1",
+        "questions": [
+            {
+                "questionType": {
+                    "type": "TE",
+                    "selector": "ML",
+                    "subSelector": null
+                },
+                "questionText": "Any other comments?",
+                "questionLabel": null,
+                "validation": {
+                    "doesForceResponse": false
+                },
+                "questionName": "Q2",
+                "questionId": "QID4"
+            }
+        ]
+    },
+    {
+        "description": "Block 3",
+        "questions": []
+    },
+    {
+        "description": "Block 2",
+        "questions": []
+    }
+]

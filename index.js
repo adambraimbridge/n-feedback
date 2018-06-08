@@ -1,5 +1,6 @@
 const Overlay = require('o-overlay');
 const surveyBuilder = require('./survey-builder');
+const postResponse = require('./src/post-response');
 
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
@@ -12,7 +13,7 @@ async function getSurveyData ( surveyId ){
 	});
 }
 
-function setBehaviour (overlay){
+function setBehaviour (overlay, surveyData, surveyId) {
 	const context = overlay.content;
 
 	const nextButtons = document.querySelectorAll('.feedback__survey-next', context);
@@ -40,11 +41,18 @@ function setBehaviour (overlay){
 		button.addEventListener('click', event => {
 			event.preventDefault();
 
-			const request = new XMLHttpRequest();
-			request.open('POST', '//local.ft.com:3002/');
-			request.send(generateResponse(overlay));
-			overlay.close();
-			hideFeedbackButton();
+			const surveyResponse = generateResponse(overlay);
+
+			postResponse(surveyId, surveyData, surveyResponse)
+				.then(() => {
+					overlay.close();
+					hideFeedbackButton();
+				})
+				.catch(() => {
+					// ToDo: Add some actual error handling here
+					overlay.close();
+					hideFeedbackButton();
+				});
 		});
 	});
 }
@@ -57,7 +65,7 @@ function generateResponse (overlay){
 		response[key] = val;
 	});
 
-	return JSON.stringify(response);
+	return response;
 }
 
 function toggleOverlay (overlay){
@@ -106,7 +114,7 @@ module.exports.init = () => {
 		});
 
 		document.addEventListener('oOverlay.ready', () => {
-			setBehaviour(feedbackOverlay);
+			setBehaviour(feedbackOverlay, surveyData, surveyId);
 		}, true);
 	});
 };
