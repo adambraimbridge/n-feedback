@@ -73,7 +73,7 @@ function buildTextEntryQuestion (question) {
 	return html;
 }
 
-function buildSurvey (surveyData) {
+function buildSurvey (surveyData, surveyId) {
 	const builderMap = {
 		header: buildHeader,
 		footer: buildFooter,
@@ -91,7 +91,7 @@ function buildSurvey (surveyData) {
 				<span>I don't want to give feedback</span>
 			</a>
 			<form class="feedback__survey__wrapper-form">
-				<input type="hidden" name="surveyId" value="SV_bECh88bz44kFmq9" />`
+				<input type="hidden" name="surveyId" value="${surveyId}" />`
 	];
 
 	surveyData.forEach( (block, blockId) => {
