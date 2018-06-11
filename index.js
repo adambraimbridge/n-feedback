@@ -84,7 +84,7 @@ module.exports.init = () => {
 
 		let html = '';
 		try {
-			html = surveyBuilder.buildSurvey(surveyData);
+			html = surveyBuilder.buildSurvey(surveyData, surveyId);
 		}catch( err ){
 			container.classList.add('hidden');
 			trigger.classList.add('hidden');
