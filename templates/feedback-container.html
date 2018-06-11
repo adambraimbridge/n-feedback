@@ -1,13 +1,15 @@
-<div class="feedback__container">
-	<div class="feedback__overlay__container"></div>
-	<a class="feedback__container__close-button hidden" href="#void">
-		<span>I don't want to give feedback</span>
-	</a>
+{{#if @root.flags.qualtrics }}
+	<div class="feedback__container">
+		<div class="feedback__overlay__container"></div>
+		<a class="feedback__container__close-button hidden" href="#void">
+			<span>I don't want to give feedback</span>
+		</a>
 
-	<p class="feedback__desktop__prompt">
-		How easy was it to use the FT.com today?
-	</p>
-	<button class="feedback__survey-trigger">
-		<span>Feedback</span>
-	</button>
-</div>
+		<p class="feedback__desktop__prompt">
+			How easy was it to use the FT.com today?
+		</p>
+		<button class="feedback__survey-trigger">
+			<span>Feedback</span>
+		</button>
+	</div>
+{{/if}}

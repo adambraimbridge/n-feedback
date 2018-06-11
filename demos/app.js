@@ -6,7 +6,7 @@ const highlight = chalk.bold.green;
 const app = module.exports = express({
 	name: 'public',
 	systemCode: 'n-feedback-demo',
-	withFlags: false,
+	withFlags: true,
 	withHandlebars: true,
 	withNavigation: false,
 	withAnonMiddleware: false,
