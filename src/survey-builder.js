@@ -31,9 +31,9 @@ function buildQuestion (question) {
 
 function buildMultipleChoiceQuestion (question) {
 	const html = [
-		`<fieldset class="feedback__question-radio o-forms">
+		`<fieldset class="feedback__question-radio">
 			<legend>${question.questionText}</legend>
-			<div class="feedback__question-radio__container o-forms__group">`
+			<div class="feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
 
 	Object.entries(question.choices).forEach( ([choiceId, choice], current, choices) => {

@@ -1,5 +1,4 @@
 $o-overlay-is-silent: false;
-$o-forms-is-silent: false;
 $o-icons-is-silent: false;
 @import 'n-ui-foundations/main';
 @import 'o-buttons/main';
@@ -144,6 +143,8 @@ $o-icons-is-silent: false;
 	.feedback__question-radio {
 		border-top: 1px solid getColor('slate');
 		border-bottom: 1px solid getColor('slate');
+		border-left: none;
+		border-right: none;
 		padding: 1em 0 0.4em 0;
 
 		legend {
@@ -151,8 +152,10 @@ $o-icons-is-silent: false;
 		}
 
 		.feedback__question-radio__container {
+			@include oFormsGroup();
 			display: flex;
 			margin-top: 0;
+			margin-bottom: 0;
 			padding: 0 0 10px 10px;
 
 			@include oGridRespondTo($until: M){
@@ -162,12 +165,13 @@ $o-icons-is-silent: false;
 
 		.feedback__question-radio__choice-container {
 			flex-grow: 1;
+			text-align: center;
 		}
 
 		label {
 			span {
 				display: block;
-				margin-left: -40px;
+				margin-left: -50px;
 				margin-top: 30px;
 			}
 		}
