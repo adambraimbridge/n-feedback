@@ -7,8 +7,8 @@
 
 // Desktop styles
 @include oGridRespondTo($from: M){
-	.feedback__container {
-		.feedback__survey-trigger {
+	.n-feedback__container {
+		.n-feedback__survey-trigger {
 			z-index: 1000;
 			display: block;
 			width: 100px;
@@ -46,11 +46,11 @@
 		z-index: 11;
 	}
 
-	.feedback__desktop__prompt {
+	.n-feedback__desktop__prompt {
 		display: none;
 	}
 
-	.feedback__container__close-button {
+	.n-feedback__container__close-button {
 		display: none;
 	}
 }
@@ -62,14 +62,14 @@
 		z-index: 110;
 	}
 
-	.feedback__container {
+	.n-feedback__container {
 		display: block;
 		background: getColor('white');
 		text-align: center;
 		padding: 1em;
 		margin: 0 10px;
 
-		.feedback__survey-trigger {
+		.n-feedback__survey-trigger {
 			margin-bottom: 10px;
 
 			span {
@@ -83,11 +83,11 @@
 		}
 	}
 
-	.feedback__desktop__prompt {
+	.n-feedback__desktop__prompt {
 		@include oTypographySansBold(0);
 	}
 
-	.feedback__container__close-button {
+	.n-feedback__container__close-button {
 		@include oIconsGetIcon('cross', oColorsGetPaletteColor('black'), 20);
 		border: none;
 		float: right;
@@ -101,7 +101,7 @@
 
 // Hide on ad overlap
 @media (max-width: 1000px) and (min-width: 980px) {
-	.feedback__container {
+	.n-feedback__container {
 		display: none;
 	}
 }
@@ -109,11 +109,11 @@
 .o-overlay--feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 
-	.feedback__primary-button {
+	.n-feedback__primary-button {
 		@include oButtons(default, primary);
 	}
 
-	.feedback__survey__close-button {
+	.n-feedback__survey__close-button {
 		border-bottom: none;
 		margin-top: -10px;
 		margin-right: -10px;
@@ -123,22 +123,22 @@
 		}
 	}
 
-	.feedback__question-header {
+	.n-feedback__question-header {
 		@include oTypographySans(0);
 		margin: 0 0 1em 0;
 	}
 
-	.feedback__question-text {
+	.n-feedback__question-text {
 		display: none;
 	}
 
-	.feedback__question-text-entry {
+	.n-feedback__question-text-entry {
 		textarea {
 			min-height: 126px;
 		}
 	}
 
-	.feedback__question-radio {
+	.n-feedback__question-radio {
 		border-top: 1px solid getColor('slate');
 		border-bottom: 1px solid getColor('slate');
 		border-left: none;
@@ -149,7 +149,7 @@
 			@include oNormaliseVisuallyHidden;
 		}
 
-		.feedback__question-radio__container {
+		.n-feedback__question-radio__container {
 			@include oFormsGroup();
 			display: flex;
 			margin-top: 0;
@@ -161,7 +161,7 @@
 			}
 		}
 
-		.feedback__question-radio__choice-container {
+		.n-feedback__question-radio__choice-container {
 			flex-grow: 1;
 			text-align: center;
 		}
@@ -179,7 +179,7 @@
 		}
 	}
 
-	.feedback__survey__button-bar {
+	.n-feedback__survey__button-bar {
 		text-align: right;
 		margin-bottom: 0;
 	}

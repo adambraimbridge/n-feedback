@@ -1,14 +1,14 @@
 
 function buildHeader (question) {
-	return `<h3 class="feedback__question-header">${question.questionText}</h3>`;
+	return `<h3 class="n-feedback__question-header">${question.questionText}</h3>`;
 }
 
 function buildText (question) {
-	return `<p class="feedback__question-text">${question.questionText}</p>`;
+	return `<p class="n-feedback__question-text">${question.questionText}</p>`;
 }
 
 function buildFooter (question) {
-	return `<p class="feedback__question-footer">${question.questionText}</p>`;
+	return `<p class="n-feedback__question-footer">${question.questionText}</p>`;
 }
 
 function buildQuestion (question) {
@@ -31,9 +31,9 @@ function buildQuestion (question) {
 
 function buildMultipleChoiceQuestion (question) {
 	const html = [
-		`<fieldset class="feedback__question-radio">
+		`<fieldset class="n-feedback__question-radio">
 			<legend>${question.questionText}</legend>
-			<div class="feedback__question-radio__container">`
+			<div class="n-feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
 
 	Object.entries(question.choices).forEach( ([choiceId, choice], current, choices) => {
@@ -45,10 +45,10 @@ function buildMultipleChoiceQuestion (question) {
 		const fieldId = `choice-${choiceId}-${~~(Math.random()*0xffff)}`;
 
 		html.push(
-			`<div class="feedback__question-radio__choice-container">
+			`<div class="n-feedback__question-radio__choice-container">
 				<input type="radio" id="${fieldId}" class="o-forms__radio" name="${question.questionId}" value="${choiceId}" />
 				<label for="${fieldId}" class="o-forms__label ${textVisibility}">
-					<span class="feedback__question-radio-text">${choice.choiceText}</span>
+					<span class="n-feedback__question-radio-text">${choice.choiceText}</span>
 				</label>
 			</div>`
 		);
@@ -65,7 +65,7 @@ function buildTextEntryQuestion (question) {
 	const fieldId = `text-${question.questionId}-${~~(Math.random()*0xffff)}`;
 
 	const html =
-		`<p class="feedback__question-text-entry o-forms">
+		`<p class="n-feedback__question-text-entry o-forms">
 			<label for="${fieldId}" class="o-forms__label">${question.questionText}</label>
 			<textarea id="${fieldId}" name="${question.questionId}" class="o-forms__textarea"></textarea>
 		</p>`;
@@ -86,18 +86,18 @@ function buildSurvey (surveyData, surveyId) {
 	}
 
 	const surveyHTML = [
-		`<div class="feedback__survey">
-			<a class="feedback__survey__close-button o-overlay__close" href="#void">
+		`<div class="n-feedback__survey">
+			<a class="n-feedback__survey__close-button o-overlay__close" href="#void">
 				<span>I don't want to give feedback</span>
 			</a>
-			<form class="feedback__survey__wrapper-form">
+			<form class="n-feedback__survey__wrapper-form">
 				<input type="hidden" name="surveyId" value="${surveyId}" />`
 	];
 
 	surveyData.forEach( (block, blockId) => {
 		// Only show the first block initially, hide the others
 		const hiddenClass = (blockId === 0 ? '': 'hidden');
-		const blockHTML = [`<div class="feedback__survey-block ${hiddenClass} feedback__survey-block-${blockId}">`];
+		const blockHTML = [`<div class="n-feedback__survey-block ${hiddenClass} n-feedback__survey-block-${blockId}">`];
 
 		block.questions.forEach( question => {
 			const blockType = question.questionName.toLowerCase();
@@ -112,17 +112,17 @@ function buildSurvey (surveyData, surveyId) {
 		// if this not the last block on the survey
 		if ( surveyData.length - 1 > blockId ) {
 			blockHTML.push(
-				`<p class="feedback__survey__button-bar">
-					<button class="feedback__primary-button feedback__survey-next"
-						data-survey-next="feedback__survey-block-${blockId+1}">
+				`<p class="n-feedback__survey__button-bar">
+					<button class="n-feedback__primary-button n-feedback__survey-next"
+						data-survey-next="n-feedback__survey-block-${blockId+1}">
 						Next
 					</button>
 				</p>`
 			);
 		} else {
 			blockHTML.push(
-				`<p class="feedback__survey__button-bar">
-					<button class="feedback__primary-button feedback__survey-submit">
+				`<p class="n-feedback__survey__button-bar">
+					<button class="n-feedback__primary-button n-feedback__survey-submit">
 						Submit
 					</button>
 				</p>`

@@ -16,13 +16,13 @@ async function getSurveyData ( surveyId ){
 function setBehaviour (overlay, surveyData, surveyId) {
 	const context = overlay.content;
 
-	const nextButtons = document.querySelectorAll('.feedback__survey-next', context);
+	const nextButtons = document.querySelectorAll('.n-feedback__survey-next', context);
 	nextButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();
 
 			const current = event.target;
-			const block = current.closest('.feedback__survey-block');
+			const block = current.closest('.n-feedback__survey-block');
 			const nextBlockSelector = '.' + current.getAttribute('data-survey-next');
 			const nextBlock = document.querySelector(nextBlockSelector);
 
@@ -36,7 +36,7 @@ function setBehaviour (overlay, surveyData, surveyId) {
 		}, true);
 	});
 
-	const submitButtons = document.querySelectorAll('.feedback__survey-submit', context);
+	const submitButtons = document.querySelectorAll('.n-feedback__survey-submit', context);
 	submitButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();
@@ -59,7 +59,7 @@ function setBehaviour (overlay, surveyData, surveyId) {
 
 function generateResponse (overlay){
 	const context = overlay.content;
-	const form = document.querySelector('.feedback__survey__wrapper-form', context);
+	const form = document.querySelector('.n-feedback__survey__wrapper-form', context);
 	const response = {};
 	(new FormData(form)).forEach((val, key) => {
 		response[key] = val;
@@ -73,14 +73,14 @@ function toggleOverlay (overlay){
 }
 
 function hideFeedbackButton (){
-	document.querySelector('.feedback__container').classList.add('hidden');
+	document.querySelector('.n-feedback__container').classList.add('hidden');
 }
 
 module.exports.init = () => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	getSurveyData(surveyId).then( surveyData => {
-		const container = document.querySelector('.feedback__container');
-		const trigger = document.querySelector('.feedback__container .feedback__survey-trigger');
+		const container = document.querySelector('.n-feedback__container');
+		const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
 
 		let html = '';
 		try {
@@ -95,14 +95,14 @@ module.exports.init = () => {
 			html: html,
 			fullscreen: true,
 			zindex: 110,
-			customclose: '.feedback__survey__close-button'
+			customclose: '.n-feedback__survey__close-button'
 		});
 
 		trigger.addEventListener('click', () => {
 			toggleOverlay(feedbackOverlay);
 		}, true);
 
-		document.querySelector('.feedback__container__close-button').addEventListener('click', event => {
+		document.querySelector('.n-feedback__container__close-button').addEventListener('click', event => {
 			event.preventDefault();
 			hideFeedbackButton();
 		});
