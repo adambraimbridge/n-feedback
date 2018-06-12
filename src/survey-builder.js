@@ -31,9 +31,9 @@ function buildQuestion (question) {
 
 function buildMultipleChoiceQuestion (question) {
 	const html = [
-		`<fieldset class="feedback__question-radio o-forms">
+		`<fieldset class="feedback__question-radio">
 			<legend>${question.questionText}</legend>
-			<div class="feedback__question-radio__container o-forms__group">`
+			<div class="feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
 
 	Object.entries(question.choices).forEach( ([choiceId, choice], current, choices) => {
@@ -113,7 +113,7 @@ function buildSurvey (surveyData, surveyId) {
 		if ( surveyData.length - 1 > blockId ) {
 			blockHTML.push(
 				`<p class="feedback__survey__button-bar">
-					<button class="o-buttons o-buttons--primary feedback__survey-next"
+					<button class="feedback__primary-button feedback__survey-next"
 						data-survey-next="feedback__survey-block-${blockId+1}">
 						Next
 					</button>
@@ -122,7 +122,7 @@ function buildSurvey (surveyData, surveyId) {
 		} else {
 			blockHTML.push(
 				`<p class="feedback__survey__button-bar">
-					<button class="o-buttons o-buttons--primary feedback__survey-submit">
+					<button class="feedback__primary-button feedback__survey-submit">
 						Submit
 					</button>
 				</p>`
