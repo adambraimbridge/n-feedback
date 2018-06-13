@@ -1,6 +1,7 @@
 const Overlay = require('o-overlay');
 const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
+const getAdditionalInfo = require('./src/get-additional-info');
 
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
@@ -42,8 +43,9 @@ function setBehaviour (overlay, surveyData, surveyId) {
 			event.preventDefault();
 
 			const surveyResponse = generateResponse(overlay);
+			const additionalData = getAdditionalInfo();
 
-			postResponse(surveyId, surveyData, surveyResponse)
+			postResponse(surveyId, surveyData, surveyResponse, additionalData)
 				.then(() => {
 					overlay.close();
 					hideFeedbackButton();

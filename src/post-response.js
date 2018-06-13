@@ -9,10 +9,12 @@ const feedbackApi = 'https://www.ft.com/__feedback-api/v1';
  *                            are posting the response for.
  * @param {Object} surveyResponse The responses to the survey, using the question
  *                                IDs as the keys for the object.
+ * @param {Object} additionalData Additional data to be saved with the survey
+ *                                response.
  * @returns {Promise} The fetch request to post the survey response to the
  *                    Feedback API.
  */
-function postResponse (surveyId, surveyData, surveyResponse) {
+function postResponse (surveyId, surveyData, surveyResponse, additionalData) {
 	const questions = getQuestions(surveyData);
 	const questionsWithResponses = questions.map(question => {
 		const { id, text } = question;
@@ -23,7 +25,8 @@ function postResponse (surveyId, surveyData, surveyResponse) {
 
 	const body = {
 		surveyId,
-		surveyResponse: questionsWithResponses
+		surveyResponse: questionsWithResponses,
+		additionalData
 	};
 
 	const options = {
