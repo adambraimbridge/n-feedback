@@ -76,8 +76,7 @@ function hideFeedbackButton (){
 	document.querySelector('.n-feedback__container').classList.add('hidden');
 }
 
-function populateContainer () {
-	const container = document.querySelector('.n-feedback__container');
+function populateContainer (container) {
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
 		<a class="n-feedback__container__close-button hidden" href="#void">
@@ -95,10 +94,10 @@ function populateContainer () {
 module.exports.init = () => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 
-	populateContainer(); // Do this before getting the survey, or when we have it?
 
 	getSurveyData(surveyId).then( surveyData => {
 		const container = document.querySelector('.n-feedback__container');
+		populateContainer(container);
 		const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
 
 		let html = '';
