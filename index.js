@@ -76,10 +76,28 @@ function hideFeedbackButton (){
 	document.querySelector('.n-feedback__container').classList.add('hidden');
 }
 
+function populateContainer (container) {
+	container.innerHTML =
+		`<div class="n-feedback__overlay__container"></div>
+		<a class="n-feedback__container__close-button hidden" href="#void">
+			<span>I don't want to give feedback</span>
+		</a>
+
+		<p class="n-feedback__desktop__prompt">
+			How easy was it to use the FT.com today?
+		</p>
+		<button class="n-feedback__survey-trigger">
+			<span>Feedback</span>
+		</button>`;
+}
+
 module.exports.init = () => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
+
+
 	getSurveyData(surveyId).then( surveyData => {
 		const container = document.querySelector('.n-feedback__container');
+		populateContainer(container);
 		const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
 
 		let html = '';
