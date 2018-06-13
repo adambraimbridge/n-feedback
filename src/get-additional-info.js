@@ -1,6 +1,5 @@
-function getAdditionalInfo () {
-    const htmlElem = document.documentElement;
-    const appName = htmlElem.getAttribute('data-next-app');
+function getAdditionalInfo (appInfo) {
+    const appName = appInfo.name;
     const referrerUrl = document.referrer;
     const currentUrl = document.URL;
 
