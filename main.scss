@@ -70,6 +70,7 @@
 		margin: 0 10px;
 
 		.n-feedback__survey-trigger {
+			@include oButtons(default, primary);
 			margin-bottom: 10px;
 
 			span {
