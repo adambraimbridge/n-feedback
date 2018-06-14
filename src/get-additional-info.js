@@ -11,4 +11,4 @@ function getAdditionalInfo (appInfo) {
 	};
 }
 
-module.exporets = getAdditionalInfo;
+module.exports = getAdditionalInfo;
