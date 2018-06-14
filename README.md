@@ -22,5 +22,5 @@ bower install --save n-feedback
 
 Use handlebars template
 ```
-{{ > node_modules/@financial-times/n-feedback/template data}}
+{{ > n-feedback/templates/feedback-container}}
 ```

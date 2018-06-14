@@ -1,6 +1,7 @@
 const Overlay = require('o-overlay');
 const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
+const getAdditionalInfo = require('./src/get-additional-info');
 
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
@@ -13,7 +14,7 @@ async function getSurveyData ( surveyId ){
 	});
 }
 
-function setBehaviour (overlay, surveyData, surveyId) {
+function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	const context = overlay.content;
 
 	const nextButtons = document.querySelectorAll('.n-feedback__survey-next', context);
@@ -42,8 +43,9 @@ function setBehaviour (overlay, surveyData, surveyId) {
 			event.preventDefault();
 
 			const surveyResponse = generateResponse(overlay);
+			const additionalData = getAdditionalInfo(appInfo);
 
-			postResponse(surveyId, surveyData, surveyResponse)
+			postResponse(surveyId, surveyData, surveyResponse, additionalData)
 				.then(() => {
 					overlay.close();
 					hideFeedbackButton();
@@ -91,7 +93,7 @@ function populateContainer (container) {
 		</button>`;
 }
 
-module.exports.init = () => {
+module.exports.init = (appInfo) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 
 
@@ -126,7 +128,7 @@ module.exports.init = () => {
 		});
 
 		document.addEventListener('oOverlay.ready', () => {
-			setBehaviour(feedbackOverlay, surveyData, surveyId);
+			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 		}, true);
 	});
 };
