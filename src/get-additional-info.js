@@ -1,14 +1,14 @@
 // ToDo: Add tests for this and use JSDOM
 function getAdditionalInfo (appInfo) {
-    const appName = appInfo.name;
-    const referrerUrl = document.referrer;
-    const currentUrl = document.URL;
+	const appName = appInfo.name;
+	const referrerUrl = document.referrer;
+	const currentUrl = document.URL;
 
-    return {
-        appName,
-        currentUrl,
-        referrerUrl
-    };
+	return {
+		appName,
+		currentUrl,
+		referrerUrl
+	};
 }
 
 module.exporets = getAdditionalInfo;
