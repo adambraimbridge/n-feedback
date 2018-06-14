@@ -1,3 +1,4 @@
+// ToDo: Add tests for this and use JSDOM
 function getAdditionalInfo (appInfo) {
     const appName = appInfo.name;
     const referrerUrl = document.referrer;
