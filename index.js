@@ -114,7 +114,7 @@ module.exports.init = (appInfo) => {
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
 			fullscreen: true,
-			zindex: 110,
+			zindex: 1001,
 			customclose: '.n-feedback__survey__close-button'
 		});
 
