@@ -30,8 +30,10 @@ function buildQuestion (question) {
 }
 
 function buildMultipleChoiceQuestion (question) {
+	const validation = question.validation.doesForceResponse;
+
 	const html = [
-		`<fieldset class="n-feedback__question-radio">
+		`<fieldset class="n-feedback__question-radio" data-validation=${validation}>
 			<legend>${question.questionText}</legend>
 			<div class="n-feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
