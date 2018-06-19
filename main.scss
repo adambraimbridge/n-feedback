@@ -100,18 +100,6 @@
 
 }
 
-// Hide on ad overlap
-@media (max-width: 1000px) and (min-width: 980px) {
-	.n-feedback__container {
-		display: none;
-	}
-}
-@media (max-width: 1240px) and (min-width: 1220px) {
-	.n-feedback__container {
-		display: none;
-	}
-}
-
 .o-overlay--feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 
@@ -188,5 +176,17 @@
 	.n-feedback__survey__button-bar {
 		text-align: right;
 		margin-bottom: 0;
+	}
+}
+
+// Hide on ad overlap
+@media (min-width: 980px) and (max-width: 1000px)  {
+	.n-feedback__container {
+		display: none;
+	}
+}
+@media (min-width: 1220px) and (max-width: 1240px) {
+	.n-feedback__container {
+		display: none;
 	}
 }
