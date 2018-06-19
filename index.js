@@ -37,25 +37,23 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 		}, true);
 	});
 
-	const submitButtons = document.querySelectorAll('.n-feedback__survey-submit', context);
-	submitButtons.forEach( button => {
-		button.addEventListener('click', event => {
-			event.preventDefault();
+	const surveyForm = document.querySelector('.n-feedback__survey__wrapper-form', context);
+	surveyForm.addEventListener('submit', event => {
+		event.preventDefault();
 
-			const surveyResponse = generateResponse(overlay);
-			const additionalData = getAdditionalInfo(appInfo);
+		const surveyResponse = generateResponse(overlay);
+		const additionalData = getAdditionalInfo(appInfo);
 
-			postResponse(surveyId, surveyData, surveyResponse, additionalData)
-				.then(() => {
-					overlay.close();
-					hideFeedbackButton();
-				})
-				.catch(() => {
-					// ToDo: Add some actual error handling here
-					overlay.close();
-					hideFeedbackButton();
-				});
-		});
+		postResponse(surveyId, surveyData, surveyResponse, additionalData)
+			.then(() => {
+				overlay.close();
+				hideFeedbackButton();
+			})
+			.catch(() => {
+				// ToDo: Add some actual error handling here
+				overlay.close();
+				hideFeedbackButton();
+			});
 	});
 }
 
