@@ -19,11 +19,11 @@ const app = module.exports = express({
 });
 
 app.get('/', (req, res) => {
-	res.render('demo', {
-		title: 'Test App',
-		question: 'How was your visit today?',
-		type: 'radio-buttons'
-	});
+	res.render('demo', {});
+});
+
+app.get('/simple', (req, res) => {
+	res.render('demo-old', {});
 });
 
 function runPa11yTests () {

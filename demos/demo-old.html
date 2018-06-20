@@ -1,17 +1,21 @@
-<html lang="en-GB">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Financial Times</title>
-		<link rel="stylesheet" href="/public/main.css" />
-	</head>
-	<body>
-<div class="o-grid-container">
-	<h1>Demo of n-feedback</h1>
-	<div class="o-grid-row">
-		{{> template }}
-	</div>
-</div>
-<script src="/public/main.js"></script>
+<!DOCTYPE html>
+<html lang="en" class="o-hoverable-on o-hoverable-on">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<title>o-overlay: modal demo</title>
+	<meta name="viewport" content="initial-scale=1.0, width=device-width">
+	<script src="//cdn.polyfill.io/v2/polyfill.min.js?features=es5object,es5string,classlist,customevent,requestanimationframe,default"></script>
+	<style>body { margin: 0; } .core .o--if-js, .enhanced .o--if-no-js { display: none !important; }</style>
+	<script>(function(d) { d.className = d.className + ' demo-js'; })(document.documentElement);</script>
+	<link rel="stylesheet" href="//www.ft.com/__origami/service/build/v2/bundles/css?modules=o-overlay%402.4.3%3A%2Fdemos%2Fsrc%2Fdemo.scss%2Co-fonts%40%5E3.0.0%2Co-buttons%40%5E5.0.0%2Co-normalise%40%5E1.0.0">
+</head>
+<body>
+
+<script src="//www.ft.com/__origami/service/build/v2/bundles/js?modules=o-overlay%402.4.3%3A%2Fdemos%2Fsrc%2Fdemo.js%2Co-fonts%40%5E3.0.0%2Co-buttons%40%5E5.0.0%2Co-normalise%40%5E1.0.0"></script>
+<script src="//registry.origami.ft.com/embedapi?autoload=resize"></script>
+
+			{{> demos/feedback-partial }}
+
 </body>
 </html>
