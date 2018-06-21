@@ -30,6 +30,7 @@ function postResponse (surveyId, surveyData, surveyResponse, additionalData) {
 	};
 
 	const options = {
+		credentials: 'include',
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
