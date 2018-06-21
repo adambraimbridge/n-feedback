@@ -109,26 +109,34 @@ function buildSurvey (surveyData, surveyId) {
 			}
 		});
 
-		// if this not the last block on the survey
-		if ( surveyData.length - 1 > blockId ) {
+		blockHTML.push('<p class="n-feedback__survey__button-bar">');
+
+		if( blockId > 0 ) {
 			blockHTML.push(
-				`<p class="n-feedback__survey__button-bar">
-					<button class="n-feedback__primary-button n-feedback__survey-next"
-						data-survey-next="n-feedback__survey-block-${blockId+1}">
-						Next
-					</button>
-				</p>`
-			);
-		} else {
-			blockHTML.push(
-				`<p class="n-feedback__survey__button-bar">
-					<button class="n-feedback__primary-button n-feedback__survey-submit">
-						Submit
-					</button>
-				</p>`
+				`<button class="n-feedback__primary-button n-feedback__survey-next"
+					data-survey-next="n-feedback__survey-block-${blockId-1}">
+					Back
+				</button>`
 			);
 		}
 
+		// if this not the last block on the survey
+		if ( surveyData.length - 1 > blockId ) {
+			blockHTML.push(
+				`<button class="n-feedback__primary-button n-feedback__survey-next"
+					data-survey-next="n-feedback__survey-block-${blockId+1}">
+					Next
+				</button>`
+			);
+		} else {
+			blockHTML.push(
+				`<button class="n-feedback__primary-button n-feedback__survey-submit">
+					Submit
+				</button>`
+			);
+		}
+
+		blockHTML.push('</p>');
 		blockHTML.push('</div>');
 		surveyHTML.push(blockHTML.join('\n'));
 	});
