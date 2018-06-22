@@ -81,10 +81,6 @@ function hideFeedbackButton (){
 function populateContainer (container) {
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
-		<a class="n-feedback__container__close-button hidden" href="#void">
-			<span>I don't want to give feedback</span>
-		</a>
-
 		<p class="n-feedback__desktop__prompt">
 			How easy was it to use the FT.com today?
 		</p>
@@ -121,11 +117,6 @@ module.exports.init = (appInfo) => {
 		trigger.addEventListener('click', () => {
 			toggleOverlay(feedbackOverlay);
 		}, true);
-
-		document.querySelector('.n-feedback__container__close-button').addEventListener('click', event => {
-			event.preventDefault();
-			hideFeedbackButton();
-		});
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
