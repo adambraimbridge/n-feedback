@@ -49,10 +49,6 @@
 	.n-feedback__desktop__prompt {
 		display: none;
 	}
-
-	.n-feedback__container__close-button {
-		display: none;
-	}
 }
 
 // Mobile only styles
@@ -87,17 +83,6 @@
 	.n-feedback__desktop__prompt {
 		@include oTypographySansBold(0);
 	}
-
-	.n-feedback__container__close-button {
-		@include oIconsGetIcon('cross', oColorsGetPaletteColor('black'), 20);
-		border: none;
-		float: right;
-
-		span {
-			@include oNormaliseVisuallyHidden;
-		}
-	}
-
 }
 
 .o-overlay--feedback-overlay .o-overlay__content {
