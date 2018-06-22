@@ -82,7 +82,7 @@ function populateContainer (container) {
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
 		<p class="n-feedback__desktop__prompt">
-			How easy was it to use the FT.com today?
+			How easy was it to use FT.com today?
 		</p>
 		<button class="n-feedback__survey-trigger">
 			<span>Feedback</span>
