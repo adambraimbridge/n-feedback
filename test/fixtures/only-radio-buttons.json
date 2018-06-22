@@ -4,20 +4,6 @@
     "questions": [
       {
         "questionType": {
-          "type": "DB",
-          "selector": "TB",
-          "subSelector": null
-        },
-        "questionText": "How easy was it to use FT.com today? ",
-        "questionLabel": null,
-        "validation": {
-          "doesForceResponse": false
-        },
-        "questionName": "Header",
-        "questionId": "QID9"
-      },
-      {
-        "questionType": {
           "type": "MC",
           "selector": "SAVR",
           "subSelector": "TX"
@@ -71,39 +57,6 @@
           }
         },
         "questionId": "QID5"
-      },
-      {
-        "questionType": {
-          "type": "DB",
-          "selector": "TB",
-          "subSelector": null
-        },
-        "questionText": "Need help with your account?  Live chat or view our Help FAQs <a href=\"https://help.ft.com/\">here</a>.",
-        "questionLabel": null,
-        "validation": {
-          "doesForceResponse": false
-        },
-        "questionName": "Footer",
-        "questionId": "QID8"
-      }
-    ]
-  },
-  {
-    "description": "Second question",
-    "questions": [
-      {
-        "questionType": {
-          "type": "TE",
-          "selector": "ML",
-          "subSelector": null
-        },
-        "questionText": "Please tell us the reason for your score.",
-        "questionLabel": null,
-        "validation": {
-          "doesForceResponse": false
-        },
-        "questionName": "Question",
-        "questionId": "QID11"
       }
     ]
   }
