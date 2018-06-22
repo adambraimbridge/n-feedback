@@ -1,0 +1,21 @@
+[
+  {
+    "description": "First question",
+    "questions": [
+      {
+        "questionType": {
+          "type": "DB",
+          "selector": "TB",
+          "subSelector": null
+        },
+        "questionText": "Need help with your account?  Live chat or view our Help FAQs <a href=\"https://help.ft.com/\">here</a>.",
+        "questionLabel": null,
+        "validation": {
+          "doesForceResponse": false
+        },
+        "questionName": "Footer",
+        "questionId": "QID8"
+      }
+    ]
+  }
+]

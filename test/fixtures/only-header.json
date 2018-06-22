@@ -1,0 +1,21 @@
+[
+  {
+    "description": "First question",
+    "questions": [
+      {
+        "questionType": {
+          "type": "DB",
+          "selector": "TB",
+          "subSelector": null
+        },
+        "questionText": "How easy was it to use FT.com today? ",
+        "questionLabel": null,
+        "validation": {
+          "doesForceResponse": false
+        },
+        "questionName": "Header",
+        "questionId": "QID9"
+      }
+    ]
+  }
+]

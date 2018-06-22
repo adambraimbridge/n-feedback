@@ -1,0 +1,21 @@
+[
+  {
+    "description": "First question",
+    "questions": [
+      {
+        "questionType": {
+          "type": "DB",
+          "selector": "TB",
+          "subSelector": null
+        },
+        "questionText": "Sample text",
+        "questionLabel": null,
+        "validation": {
+          "doesForceResponse": false
+        },
+        "questionName": "Text",
+        "questionId": "QID13"
+      }
+    ]
+  }
+]
