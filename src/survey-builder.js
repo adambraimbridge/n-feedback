@@ -96,7 +96,7 @@ function buildSurvey (surveyData, surveyId) {
 
 	surveyData.forEach( (block, blockId) => {
 		// Only show the first block initially, hide the others
-		const hiddenClass = (blockId === 0 ? '': 'n-feedback__survey-block--hidden');
+		const hiddenClass = (blockId === 0 ? '': 'n-feedback--hidden');
 		const blockHTML = [`<div class="n-feedback__survey-block ${hiddenClass} n-feedback__survey-block-${blockId}">`];
 
 		block.questions.forEach( question => {
