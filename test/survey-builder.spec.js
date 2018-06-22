@@ -18,6 +18,10 @@ describe('surveyBuilder()', () => {
 			expect(document.querySelector('.n-feedback__survey__close-button')).to.exist;
 		});
 
+		// TODO: Should be testing for the button bar functionality
+		// - no next button on last screen
+		// - no back button on first screen
+		// - submit button on last screen only
 		it('should have next/back buttons', () => {
 			expect(document.querySelector('.n-feedback__survey-next')).to.exist;
 		});
