@@ -33,9 +33,19 @@ describe('surveyBuilder()', () => {
 		const { document } = (new JSDOM(html)).window;
 
 		it('should be rendered', () => {
-
 			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text-entry label.o-forms__label')).to.exist;
 			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text-entry textarea.o-forms__textarea')).to.exist;
+		});
+	});
+
+	describe('text block', () => {
+		const onlyText = require('./fixtures/only-text.json');
+		const html = surveyBuilder.buildSurvey(onlyText);
+		const { document } = (new JSDOM(html)).window;
+
+		it('should be rendered', () => {
+			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text')).to.exist;
+			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text').textContent).to.have.string('Sample text');
 		});
 	});
 });
