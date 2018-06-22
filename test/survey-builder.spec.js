@@ -3,11 +3,17 @@ const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 const surveyBuilder = require('./../src/survey-builder');
 
+function getFixtureDOM (jsonFileName){
+	const fixtureFile = require(`./fixtures/${jsonFileName}`);
+	const html = surveyBuilder.buildSurvey(fixtureFile);
+	const { document } = (new JSDOM(html)).window;
+
+	return document;
+}
+
 describe('surveyBuilder()', () => {
 	describe('for a well-formed survey JSON', () => {
-		const wellFormedSurvey = require('./fixtures/working-survey.json');
-		const html = surveyBuilder.buildSurvey(wellFormedSurvey);
-		const { document } = (new JSDOM(html)).window;
+		const document = getFixtureDOM('working-survey.json');
 
 		it('should return the right HTML', () => {
 			// Checking to see if the basics of a survey HTML are there
@@ -32,9 +38,7 @@ describe('surveyBuilder()', () => {
 	});
 
 	describe('text area', () => {
-		const onlyTextarea = require('./fixtures/only-textarea.json');
-		const html = surveyBuilder.buildSurvey(onlyTextarea);
-		const { document } = (new JSDOM(html)).window;
+		const document = getFixtureDOM('only-textarea.json');
 
 		it('should be rendered', () => {
 			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text-entry label.o-forms__label')).to.exist;
@@ -43,13 +47,20 @@ describe('surveyBuilder()', () => {
 	});
 
 	describe('text block', () => {
-		const onlyText = require('./fixtures/only-text.json');
-		const html = surveyBuilder.buildSurvey(onlyText);
-		const { document } = (new JSDOM(html)).window;
+		const document = getFixtureDOM('only-text.json');
 
 		it('should be rendered', () => {
 			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text')).to.exist;
 			expect(document.querySelector('.n-feedback__survey-block p.n-feedback__question-text').textContent).to.have.string('Sample text');
 		});
 	});
+
+	// TODO: Creating these stubs for when we pick up later.
+	// They should have a similar structure, but we should consider exposing
+	// individual generator functions for easier/more precise testing
+	describe.skip('Survey header block', () => {});
+	describe.skip('Survey footer block', () => {});
+	describe.skip('Survey buildQuestion block', () => {}); // Question type parsing
+	describe.skip('Survey multiple choice question block', () => {});
+	describe.skip('Survey text entry question block', () => {});
 });
