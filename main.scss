@@ -179,6 +179,10 @@
 	}
 }
 
+.n-feedback--hidden {
+	display: none;
+}
+
 // Hide on ad overlap
 @media (min-width: 980px) and (max-width: 1000px)  {
 	.n-feedback__container {

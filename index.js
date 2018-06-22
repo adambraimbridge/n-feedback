@@ -32,8 +32,8 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				return false;
 			}
 
-			block.classList.add('hidden');
-			nextBlock.classList.remove('hidden');
+			block.classList.add('n-feedback--hidden');
+			nextBlock.classList.remove('n-feedback--hidden');
 		}, true);
 	});
 
@@ -75,7 +75,7 @@ function toggleOverlay (overlay){
 }
 
 function hideFeedbackButton (){
-	document.querySelector('.n-feedback__container').classList.add('hidden');
+	document.querySelector('.n-feedback__container').classList.add('n-feedback--hidden');
 }
 
 function populateContainer (container) {
@@ -106,8 +106,8 @@ module.exports.init = (appInfo) => {
 		try {
 			html = surveyBuilder.buildSurvey(surveyData, surveyId);
 		}catch( err ){
-			container.classList.add('hidden');
-			trigger.classList.add('hidden');
+			container.classList.add('n-feedback--hidden');
+			trigger.classList.add('n-feedback--hidden');
 			return false;
 		};
 
