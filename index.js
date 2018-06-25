@@ -57,6 +57,24 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	});
 }
 
+function validate (block){
+	const elements = document.querySelectorAll('[data-validation="true"]', block);
+
+	// Valid form elements return false, only non-valid form elements are returned
+	const invalides = Array.prototype.slice.call(elements).filter( el => {
+		// TODO: Implement other questions types
+		// For now we have only the radio button that needs validation
+		if( el.classList.contains('n-feedback__question-radio') ){
+			const radios = document.querySelectorAll('input[type="radio"]', el);
+			const results = Array.prototype.slice.call(radios).filter( r => r.checked );
+			// returns false if one of the radio buttons are selected
+			return results.length === 0;
+		}
+	});
+
+	return invalides.length === 0;
+}
+
 function generateResponse (overlay){
 	const context = overlay.content;
 	const form = document.querySelector('.n-feedback__survey__wrapper-form', context);
