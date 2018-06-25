@@ -17,7 +17,7 @@ async function getSurveyData ( surveyId ){
 function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	const context = overlay.content;
 
-	const nextButtons = document.querySelectorAll('.n-feedback__survey-next', context);
+	const nextButtons = document.querySelectorAll('.n-feedback__survey-next,.n-feedback__survey-back', context);
 	nextButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();

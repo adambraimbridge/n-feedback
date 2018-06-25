@@ -81,7 +81,7 @@ function buildButtonBar (surveyLength, blockId){
 
 	if( blockId > 0 ) {
 		blockHTML.push(
-			`<button class="n-feedback__primary-button n-feedback__survey-next"
+			`<button class="n-feedback__primary-button n-feedback__survey-back"
 				data-survey-next="n-feedback__survey-block-${blockId-1}">
 				Back
 			</button>`
