@@ -23,17 +23,9 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 			event.preventDefault();
 
 			const current = event.target;
-			const block = current.closest('.n-feedback__survey-block');
 			const nextBlockSelector = '.' + current.getAttribute('data-survey-next');
-			const nextBlock = document.querySelector(nextBlockSelector);
 
-			if( !nextBlock ){
-				// console.error(`Next button: next block '${nextBlockSelector}' not found`);
-				return false;
-			}
-
-			block.classList.add('n-feedback--hidden');
-			nextBlock.classList.remove('n-feedback--hidden');
+			displayBlock(overlay, nextBlockSelector);
 		}, true);
 	});
 
@@ -55,6 +47,28 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				hideFeedbackButton();
 			});
 	});
+}
+
+function displayBlock (overlay, blockClass){
+	const nextBlock = document.querySelector(blockClass);
+	const allBlocks = document.querySelectorAll('.n-feedback__survey-block');
+
+	runValidation(nextBlock);
+
+	allBlocks.forEach( block => block.classList.add('n-feedback--hidden') );
+	nextBlock.classList.remove('n-feedback--hidden');
+}
+
+function runValidation (block){
+	const nextButton = document.querySelector('.n-feedback__survey-next', block);
+
+	if( validate(block) ){
+		nextButton.removeAttribute('disabled');
+		return true;
+	}else{
+		nextButton.setAttribute('disabled', 'disabled');
+		return false;
+	}
 }
 
 function validate (block){
@@ -136,6 +150,15 @@ module.exports.init = (appInfo) => {
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+
+			const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+			runValidation(firstBlock);
+
+			feedbackOverlay.content.addEventListener('input', event => {
+				const block = event.target.closest('.n-feedback__survey-block');
+				runValidation(block);
+			});
+
 		}, true);
 	});
 };
