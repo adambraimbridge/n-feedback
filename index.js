@@ -124,7 +124,7 @@ function populateContainer (container) {
 		<p class="n-feedback__desktop__prompt">
 			How easy was it to use FT.com today?
 		</p>
-		<button class="n-feedback__survey-trigger">
+		<button class="n-feedback__survey-trigger" data-trackable="feedback-start">
 			<span>Feedback</span>
 		</button>`;
 }

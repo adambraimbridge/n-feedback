@@ -82,7 +82,8 @@ function buildButtonBar (surveyLength, blockId){
 	if( blockId > 0 ) {
 		blockHTML.push(
 			`<button class="n-feedback__primary-button n-feedback__survey-back"
-				data-survey-next="n-feedback__survey-block-${blockId-1}">
+				data-survey-next="n-feedback__survey-block-${blockId-1}"
+				data-trackable="feedback-previous-block">
 				Back
 			</button>`
 		);
@@ -92,13 +93,15 @@ function buildButtonBar (surveyLength, blockId){
 	if ( surveyLength - 1 > blockId ) {
 		blockHTML.push(
 			`<button class="n-feedback__primary-button n-feedback__survey-next"
-				data-survey-next="n-feedback__survey-block-${blockId+1}">
+				data-survey-next="n-feedback__survey-block-${blockId+1}"
+				data-trackable="feedback-next-block">
 				Next
 			</button>`
 		);
 	} else {
 		blockHTML.push(
-			`<button class="n-feedback__primary-button n-feedback__survey-submit">
+			`<button class="n-feedback__primary-button n-feedback__survey-submit"
+				data-trackable="feedback-submit">
 				Submit
 			</button>`
 		);
