@@ -30,8 +30,10 @@ function buildQuestion (question) {
 }
 
 function buildMultipleChoiceQuestion (question) {
+	const validation = question.validation.doesForceResponse;
+
 	const html = [
-		`<fieldset class="n-feedback__question-radio">
+		`<fieldset class="n-feedback__question-radio" data-validation=${validation}>
 			<legend>${question.questionText}</legend>
 			<div class="n-feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
@@ -79,7 +81,7 @@ function buildButtonBar (surveyLength, blockId){
 
 	if( blockId > 0 ) {
 		blockHTML.push(
-			`<button class="n-feedback__primary-button n-feedback__survey-next"
+			`<button class="n-feedback__primary-button n-feedback__survey-back"
 				data-survey-next="n-feedback__survey-block-${blockId-1}">
 				Back
 			</button>`

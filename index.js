@@ -17,46 +17,86 @@ async function getSurveyData ( surveyId ){
 function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	const context = overlay.content;
 
-	const nextButtons = document.querySelectorAll('.n-feedback__survey-next', context);
-	nextButtons.forEach( button => {
+	// Adding behaviour for Next and Back buttons, moving between blocks/pages
+	const navButtons = document.querySelectorAll('.n-feedback__survey-next,.n-feedback__survey-back', context);
+	navButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();
 
 			const current = event.target;
-			const block = current.closest('.n-feedback__survey-block');
 			const nextBlockSelector = '.' + current.getAttribute('data-survey-next');
-			const nextBlock = document.querySelector(nextBlockSelector);
 
-			if( !nextBlock ){
-				// console.error(`Next button: next block '${nextBlockSelector}' not found`);
-				return false;
-			}
-
-			block.classList.add('n-feedback--hidden');
-			nextBlock.classList.remove('n-feedback--hidden');
+			displayBlock(overlay, nextBlockSelector);
 		}, true);
 	});
 
-	const submitButtons = document.querySelectorAll('.n-feedback__survey-submit', context);
-	submitButtons.forEach( button => {
-		button.addEventListener('click', event => {
-			event.preventDefault();
+	// onSubmit event for the form
+	const surveyForm = document.querySelector('.n-feedback__survey__wrapper-form', context);
+	surveyForm.addEventListener('submit', event => {
+		event.preventDefault();
 
-			const surveyResponse = generateResponse(overlay);
-			const additionalData = getAdditionalInfo(appInfo);
+		const surveyResponse = generateResponse(overlay);
+		const additionalData = getAdditionalInfo(appInfo);
 
-			postResponse(surveyId, surveyData, surveyResponse, additionalData)
-				.then(() => {
-					overlay.close();
-					hideFeedbackButton();
-				})
-				.catch(() => {
-					// ToDo: Add some actual error handling here
-					overlay.close();
-					hideFeedbackButton();
-				});
-		});
+		postResponse(surveyId, surveyData, surveyResponse, additionalData)
+			.then(() => {
+				overlay.close();
+				hideFeedbackButton();
+			})
+			.catch(() => {
+				// ToDo: Add some actual error handling here
+				overlay.close();
+				hideFeedbackButton();
+			});
 	});
+
+	// Set up validation
+	context.addEventListener('input', event => {
+		const block = event.target.closest('.n-feedback__survey-block');
+		runValidation(block);
+	});
+
+}
+
+function displayBlock (overlay, blockClass){
+	const context = overlay.content;
+	const nextBlock = document.querySelector(blockClass, context);
+	const allBlocks = document.querySelectorAll('.n-feedback__survey-block', context);
+
+	runValidation(nextBlock);
+
+	allBlocks.forEach( block => block.classList.add('n-feedback--hidden') );
+	nextBlock.classList.remove('n-feedback--hidden');
+}
+
+function runValidation (block){
+	const nextButton = document.querySelector('.n-feedback__survey-next', block);
+
+	if( validate(block) ){
+		nextButton.removeAttribute('disabled');
+		return true;
+	}else{
+		nextButton.setAttribute('disabled', 'disabled');
+		return false;
+	}
+}
+
+function validate (block){
+	const elements = document.querySelectorAll('[data-validation="true"]', block);
+
+	// Valid form elements return false, only non-valid form elements are returned
+	const invalides = Array.prototype.slice.call(elements).filter( el => {
+		// TODO: Implement other questions types
+		// For now we have only the radio button that needs validation
+		if( el.classList.contains('n-feedback__question-radio') ){
+			const radios = document.querySelectorAll('input[type="radio"]', el);
+			const results = Array.prototype.slice.call(radios).filter( r => r.checked );
+			// returns false if one of the radio buttons are selected
+			return results.length === 0;
+		}
+	});
+
+	return invalides.length === 0;
 }
 
 function generateResponse (overlay){
@@ -120,6 +160,10 @@ module.exports.init = (appInfo) => {
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+
+			// run Validation as soon as you display the first block
+			const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+			runValidation(firstBlock);
 		}, true);
 	});
 };
