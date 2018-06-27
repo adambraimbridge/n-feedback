@@ -17,8 +17,9 @@ async function getSurveyData ( surveyId ){
 function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	const context = overlay.content;
 
-	const nextButtons = document.querySelectorAll('.n-feedback__survey-next,.n-feedback__survey-back', context);
-	nextButtons.forEach( button => {
+	// Adding behaviour for Next and Back buttons, moving between blocks/pages
+	const navButtons = document.querySelectorAll('.n-feedback__survey-next,.n-feedback__survey-back', context);
+	navButtons.forEach( button => {
 		button.addEventListener('click', event => {
 			event.preventDefault();
 
@@ -29,6 +30,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 		}, true);
 	});
 
+	// onSubmit event for the form
 	const surveyForm = document.querySelector('.n-feedback__survey__wrapper-form', context);
 	surveyForm.addEventListener('submit', event => {
 		event.preventDefault();
@@ -47,11 +49,19 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				hideFeedbackButton();
 			});
 	});
+
+	// Set up validation
+	context.addEventListener('input', event => {
+		const block = event.target.closest('.n-feedback__survey-block');
+		runValidation(block);
+	});
+
 }
 
 function displayBlock (overlay, blockClass){
-	const nextBlock = document.querySelector(blockClass);
-	const allBlocks = document.querySelectorAll('.n-feedback__survey-block');
+	const context = overlay.content;
+	const nextBlock = document.querySelector(blockClass, context);
+	const allBlocks = document.querySelectorAll('.n-feedback__survey-block', context);
 
 	runValidation(nextBlock);
 
@@ -151,14 +161,9 @@ module.exports.init = (appInfo) => {
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
+			// run Validation as soon as you display the first block
 			const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
 			runValidation(firstBlock);
-
-			feedbackOverlay.content.addEventListener('input', event => {
-				const block = event.target.closest('.n-feedback__survey-block');
-				runValidation(block);
-			});
-
 		}, true);
 	});
 };
