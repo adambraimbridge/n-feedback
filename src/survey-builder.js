@@ -38,7 +38,9 @@ function buildMultipleChoiceQuestion (question) {
 			<div class="n-feedback__question-radio__container">`
 	]; // fieldsets can't display: flex
 
-	Object.entries(question.choices).forEach( ([choiceId, choice], current, choices) => {
+	const choices = Object.entries(question.choices).reverse();
+
+	choices.forEach( ([choiceId, choice], current, choices) => {
 		let textVisibility = '';
 		// if not the first or the last element
 		if ( !(choiceId === choices[0][0] || choiceId === choices[choices.length-1][0]) ) {
