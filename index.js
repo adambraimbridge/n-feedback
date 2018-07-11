@@ -51,7 +51,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	});
 
 	// Set up validation
-	context.addEventListener('input', event => {
+	context.addEventListener('change', event => {
 		const block = event.target.closest('.n-feedback__survey-block');
 		runValidation(block);
 	});
