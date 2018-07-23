@@ -32,30 +32,33 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 
 	// onSubmit event for the form
 	const surveyForm = document.querySelector('.n-feedback__survey__wrapper-form', context);
-	surveyForm.addEventListener('submit', event => {
-		event.preventDefault();
+	if (surveyForm) {
+		surveyForm.addEventListener('submit', event => {
+			event.preventDefault();
 
-		const surveyResponse = generateResponse(overlay);
-		const additionalData = getAdditionalInfo(appInfo);
+			const surveyResponse = generateResponse(overlay);
+			const additionalData = getAdditionalInfo(appInfo);
 
-		postResponse(surveyId, surveyData, surveyResponse, additionalData)
-			.then(() => {
-				overlay.close();
-				hideFeedbackButton();
-			})
-			.catch(() => {
-				// ToDo: Add some actual error handling here
-				overlay.close();
-				hideFeedbackButton();
-			});
-	});
+			postResponse(surveyId, surveyData, surveyResponse, additionalData)
+				.then(() => {
+					overlay.close();
+					hideFeedbackButton();
+				})
+				.catch(() => {
+					// ToDo: Add some actual error handling here
+					overlay.close();
+					hideFeedbackButton();
+				});
+		});
+	}
 
 	// Set up validation
-	context.addEventListener('change', event => {
-		const block = event.target.closest('.n-feedback__survey-block');
-		runValidation(block);
-	});
-
+	if (context) {
+		context.addEventListener('change', event => {
+			const block = event.target.closest('.n-feedback__survey-block');
+			runValidation(block);
+		});
+	}
 }
 
 function displayBlock (overlay, blockClass){
@@ -154,9 +157,11 @@ module.exports.init = (appInfo) => {
 			customclose: '.n-feedback__survey__close-button'
 		});
 
-		trigger.addEventListener('click', () => {
-			toggleOverlay(feedbackOverlay);
-		}, true);
+		if (trigger) {
+			trigger.addEventListener('click', () => {
+				toggleOverlay(feedbackOverlay);
+			}, true);
+		}
 
 		document.addEventListener('oOverlay.ready', () => {
 			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
