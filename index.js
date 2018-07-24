@@ -163,12 +163,14 @@ module.exports.init = (appInfo) => {
 			}, true);
 		}
 
-		document.addEventListener('oOverlay.ready', () => {
-			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+		document.addEventListener('oOverlay.ready', (event) => {
+			if (event.detail.el.id === 'feedback-overlay') { // ensure we only run for this overlay
+				setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
-			// run Validation as soon as you display the first block
-			const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
-			runValidation(firstBlock);
+				// run Validation as soon as you display the first block
+				const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+				runValidation(firstBlock);
+			}
 		}, true);
 	});
 };
