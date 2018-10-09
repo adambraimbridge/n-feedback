@@ -33,6 +33,7 @@ function postResponse (surveyId, surveyData, surveyResponse, additionalData) {
 		credentials: 'include',
 		method: 'POST',
 		headers: {
+			'Accept': 'application/json',
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(body)

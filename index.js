@@ -7,7 +7,11 @@ async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
 	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
 	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
-	return fetch(surveyDataURL).then( res => {
+	return fetch(surveyDataURL, {
+		headers: {
+			'Accept': 'application/json',
+		}
+	}).then( res => {
 		return res.json();
 	}).catch( () => {
 		// console.error('getSurveyData: XHR: ', err);
