@@ -142,6 +142,7 @@ module.exports.init = (appInfo) => {
 
 	getSurveyData(surveyId).then( surveyData => {
 		const container = document.querySelector('.n-feedback__container');
+		container.classList.remove('n-feedback--hidden');
 		populateContainer(container);
 		const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
 
