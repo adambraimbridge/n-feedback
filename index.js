@@ -6,15 +6,14 @@ const getAdditionalInfo = require('./src/get-additional-info');
 async function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
 	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
-	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
+	const surveyDataURL = `http://ft-mw4561-local.in.ft.com:3002/${surveyId}`;
+	// const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
 	return fetch(surveyDataURL, {
 		headers: {
-			'Accept': 'application/json',
+			'Accept': 'application/json'
 		}
 	}).then( res => {
 		return res.json();
-	}).catch( () => {
-		// console.error('getSurveyData: XHR: ', err);
 	});
 }
 
@@ -138,8 +137,12 @@ function populateContainer (container) {
 
 module.exports.init = (appInfo) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
-
-
+    if (Overlay.getOverlays()["feedback-overlay"]) {
+        Overlay.getOverlays()["feedback-overlay"].destroy();
+    }
+    document.querySelectorAll('.n-feedback__container').forEach(node => {
+        node.innerHtml = ''
+    });
 	getSurveyData(surveyId).then( surveyData => {
 		const container = document.querySelector('.n-feedback__container');
 		populateContainer(container);
@@ -176,5 +179,7 @@ module.exports.init = (appInfo) => {
 				runValidation(firstBlock);
 			}
 		}, true);
-	});
+    }).catch((err) => {
+        console.error(err);
+    });
 };
