@@ -1,3 +1,3 @@
-import feedback from 'n-feedback';
+import feedback from '../../index';
 
 feedback.init({name: 'article'});
