@@ -5,6 +5,9 @@
 @import "o-icons/main";
 @import "o-colors/main";
 
+@include oFormsBaseFeatures();
+@include oFormsRadioCheckboxFeatures();
+
 // Desktop styles
 @include oGridRespondTo($from: M){
 	.n-feedback__container {
