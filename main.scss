@@ -15,11 +15,11 @@
 			z-index: 1000;
 			display: block;
 			width: 100px;
-			height: 35px;
+			height: 28px;
 			position: fixed;
 			right: 0px;
 			bottom: 200px;
-			margin-right: -39px;
+			margin-right: -36px;
 			color: getColor('white');
 			background: getColor('teal');
 			border: 1px solid getColor('teal');
@@ -28,7 +28,6 @@
 
 			span {
 				display: block;
-				margin-top: -7px;
 			}
 		}
 	}
