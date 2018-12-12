@@ -140,21 +140,23 @@ function populateContainer (container) {
 module.exports.init = (appInfo) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 
-
 	getSurveyData(surveyId).then( surveyData => {
-		const container = document.querySelector('.n-feedback__container');
-		container.classList.remove('n-feedback--hidden');
-		populateContainer(container);
-		const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
+		const containers = document.querySelectorAll('.n-feedback__container');
 
-		let html = '';
-		try {
-			html = surveyBuilder.buildSurvey(surveyData, surveyId);
-		}catch( err ){
-			container.classList.add('n-feedback--hidden');
-			trigger.classList.add('n-feedback--hidden');
-			return false;
-		};
+		[].forEach.call(containers, function(container) {
+			container.classList.remove('n-feedback--hidden');
+			populateContainer(container);
+			const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
+
+			let html = '';
+			try {
+				html = surveyBuilder.buildSurvey(surveyData, surveyId);
+			} catch( err ) {
+				container.classList.add('n-feedback--hidden');
+				trigger.classList.add('n-feedback--hidden');
+				return false;
+			};
+		});
 
 		const feedbackOverlay = new Overlay('feedback-overlay', {
 			html: html,
