@@ -139,27 +139,29 @@ function populateContainer (container) {
 
 module.exports.init = (appInfo) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
+	const { containerSelector = 'body' } = appInfo;
 
 	getSurveyData(surveyId).then( surveyData => {
-		const containers = document.querySelectorAll('.n-feedback__container');
+		const container = document.querySelector(`${containerSelector} .n-feedback__container`);
+		let trigger;
+		let html = '';
 
-		[].forEach.call(containers, function(container) {
+		if (container) {
 			container.classList.remove('n-feedback--hidden');
 			populateContainer(container);
-			const trigger = document.querySelector('.n-feedback__container .n-feedback__survey-trigger');
+			trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
-			let html = '';
 			try {
 				html = surveyBuilder.buildSurvey(surveyData, surveyId);
-			} catch( err ) {
+			} catch ( err ) {
 				container.classList.add('n-feedback--hidden');
 				trigger.classList.add('n-feedback--hidden');
 				return false;
 			};
-		});
+		};
 
-		const feedbackOverlay = new Overlay('feedback-overlay', {
-			html: html,
+		const feedbackOverlay = Overlay.getOverlays()['feedback-overlay'] || new Overlay('feedback-overlay', {
+			html,
 			fullscreen: true,
 			zindex: 1001,
 			customclose: '.n-feedback__survey__close-button'
@@ -176,7 +178,7 @@ module.exports.init = (appInfo) => {
 				setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
 				// run Validation as soon as you display the first block
-				const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+				const firstBlock = document.querySelectorAll(`${containerSelector} .n-feedback__survey-block`, feedbackOverlay.content)[0];
 				runValidation(firstBlock);
 			}
 		}, true);
