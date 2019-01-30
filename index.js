@@ -4,7 +4,7 @@ const postResponse = require('./src/post-response');
 const getAdditionalInfo = require('./src/get-additional-info');
 require('formdata-polyfill');
 
-async function getSurveyData ( surveyId ){
+function getSurveyData ( surveyId ){
 	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
 	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
 	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
@@ -21,6 +21,7 @@ async function getSurveyData ( surveyId ){
 
 function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 	const context = overlay.content;
+	const { containerSelector = 'body' } = appInfo;
 
 	// Adding behaviour for Next and Back buttons, moving between blocks/pages
 	const navButtons = document.querySelectorAll('.n-feedback__survey-next,.n-feedback__survey-back', context);
@@ -47,12 +48,12 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 			postResponse(surveyId, surveyData, surveyResponse, additionalData)
 				.then(() => {
 					overlay.close();
-					hideFeedbackButton();
+					hideFeedbackButton(containerSelector);
 				})
 				.catch(() => {
 					// ToDo: Add some actual error handling here
 					overlay.close();
-					hideFeedbackButton();
+					hideFeedbackButton(containerSelector);
 				});
 		});
 	}
@@ -122,8 +123,8 @@ function toggleOverlay (overlay){
 	overlay[ overlay.visible ? 'close' : 'open' ]();
 }
 
-function hideFeedbackButton (){
-	document.querySelector('.n-feedback__container').classList.add('n-feedback--hidden');
+function hideFeedbackButton (containerSelector){
+	document.querySelector(`${containerSelector} .n-feedback__container`).classList.add('n-feedback--hidden');
 }
 
 function populateContainer (container) {
@@ -137,31 +138,30 @@ function populateContainer (container) {
 		</button>`;
 }
 
-module.exports.init = (appInfo) => {
+module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	const { containerSelector = 'body' } = appInfo;
+	let feedbackOverlay;
+	let setUpActions;
 
 	getSurveyData(surveyId).then( surveyData => {
 		const container = document.querySelector(`${containerSelector} .n-feedback__container`);
-		let trigger;
+		container.classList.remove('n-feedback--hidden');
+		populateContainer(container);
+		const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
+
 		let html = '';
-
-		if (container) {
-			container.classList.remove('n-feedback--hidden');
-			populateContainer(container);
-			trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
-
-			try {
-				html = surveyBuilder.buildSurvey(surveyData, surveyId);
-			} catch ( err ) {
-				container.classList.add('n-feedback--hidden');
-				trigger.classList.add('n-feedback--hidden');
-				return false;
-			};
+		try {
+			html = surveyBuilder.buildSurvey(surveyData, surveyId);
+		}catch( err ){
+			container.classList.add('n-feedback--hidden');
+			trigger.classList.add('n-feedback--hidden');
+			return false;
 		};
 
-		const feedbackOverlay = Overlay.getOverlays()['feedback-overlay'] || new Overlay('feedback-overlay', {
-			html,
+		const overlayId = `feedback-overlay-${containerSelector}`;
+		feedbackOverlay = new Overlay(overlayId, {
+			html: html,
 			fullscreen: true,
 			zindex: 1001,
 			customclose: '.n-feedback__survey__close-button'
@@ -173,14 +173,23 @@ module.exports.init = (appInfo) => {
 			}, true);
 		}
 
-		document.addEventListener('oOverlay.ready', (event) => {
-			if (event.detail.el.id === 'feedback-overlay') { // ensure we only run for this overlay
+		setUpActions = function (event) {
+			if (event.detail.el.id === overlayId) { // ensure we only run for this overlay
 				setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
 				// run Validation as soon as you display the first block
-				const firstBlock = document.querySelectorAll(`${containerSelector} .n-feedback__survey-block`, feedbackOverlay.content)[0];
+				const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
 				runValidation(firstBlock);
 			}
-		}, true);
+		}
+
+		document.addEventListener('oOverlay.ready', setUpActions, { once: true });
 	});
+
+	return {
+		destroy: () => {
+			if (feedbackOverlay) feedbackOverlay.destroy();
+			document.removeEventListener('oOverlay.ready', setUpActions, { once: true });
+		}
+	};
 };

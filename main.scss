@@ -17,9 +17,10 @@
 			width: 100px;
 			height: 28px;
 			position: fixed;
-			right: 0px;
+			right: 3px;
 			bottom: 200px;
-			margin-right: -36px;
+			margin-right: -39px;
+			padding-top: 2px;
 			color: getColor('white');
 			background: getColor('teal');
 			border: 1px solid getColor('teal');
@@ -33,7 +34,7 @@
 	}
 
 	// overriding o-overlay styles and positioning the feedback box
-	.o-overlay.o-overlay--feedback-overlay {
+	.o-overlay.o-overlay--modal {
 		/* Resetting the inline values first */
 		left: inherit!important;
 		margin-left: inherit!important;
@@ -55,7 +56,7 @@
 
 // Mobile only styles
 @include oGridRespondTo($until: M){
-	.o-overlay--feedback-overlay {
+	.o-overlay--modal {
 		top: 0;
 		z-index: 110;
 	}
@@ -87,7 +88,7 @@
 	}
 }
 
-.o-overlay--feedback-overlay .o-overlay__content {
+.o-overlay--modal .o-overlay__content {
 	@include oTypographySans(0);
 
 	.n-feedback__primary-button {
