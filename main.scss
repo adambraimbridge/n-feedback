@@ -1,4 +1,3 @@
-@import 'n-ui-foundations/main';
 @import 'o-buttons/main';
 @import 'o-forms/main';
 @import 'o-overlay/main';
@@ -21,9 +20,9 @@
 			bottom: 200px;
 			margin-right: -39px;
 			padding-top: 2px;
-			color: getColor('white');
-			background: getColor('teal');
-			border: 1px solid getColor('teal');
+			color: oColorsGetPaletteColor('white');
+			background-color: oColorsGetPaletteColor('teal');
+			border: 1px solid oColorsGetPaletteColor('teal');
 			transform: rotate(-90deg);
 			@include oTypographySansBold(0);
 
@@ -63,7 +62,7 @@
 
 	.n-feedback__container {
 		display: block;
-		background: getColor('white');
+		background: oColorsGetPaletteColor('white');
 		text-align: center;
 		padding: 1em;
 		margin: 0 10px;
@@ -122,8 +121,8 @@
 	}
 
 	.n-feedback__question-radio {
-		border-top: 1px solid getColor('slate');
-		border-bottom: 1px solid getColor('slate');
+		border-top: 1px solid oColorsGetPaletteColor('slate');
+		border-bottom: 1px solid oColorsGetPaletteColor('slate');
 		border-left: none;
 		border-right: none;
 		padding: 1em 0 0.4em 0;
