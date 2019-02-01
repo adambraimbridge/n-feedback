@@ -2,7 +2,6 @@ const Overlay = require('o-overlay');
 const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
 const getAdditionalInfo = require('./src/get-additional-info');
-const logger = require('@financial-times/n-logger').default;
 require('formdata-polyfill');
 
 function getSurveyData ( surveyId ){
@@ -16,7 +15,7 @@ function getSurveyData ( surveyId ){
 	}).then( res => {
 		return res.json();
 	}).catch( () => {
-		// console.error('getSurveyData: XHR: ', err);
+		console.error('Failed to load survey: ', err);
 	});
 }
 
@@ -54,7 +53,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				.catch((err) => {
 					overlay.close();
 					hideFeedbackButton(containerSelector);
-					logger.error('Failed to post form', err);
+					console.error('Failed to post form', err);
 				});
 		});
 	}
@@ -157,7 +156,7 @@ module.exports.init = (appInfo = {}) => {
 		} catch( err ){
 			container.classList.add('n-feedback--hidden');
 			trigger.classList.add('n-feedback--hidden');
-			logger.error('Error at building survey', err);
+			console.error('Error at building survey', err);
 
 			return false;
 		};
