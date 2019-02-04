@@ -1,4 +1,3 @@
-@import 'n-ui-foundations/main';
 @import 'o-buttons/main';
 @import 'o-forms/main';
 @import 'o-overlay/main';
@@ -15,26 +14,26 @@
 			z-index: 1000;
 			display: block;
 			width: 100px;
-			height: 35px;
+			height: 28px;
 			position: fixed;
-			right: 0px;
+			right: 3px;
 			bottom: 200px;
 			margin-right: -39px;
-			color: getColor('white');
-			background: getColor('teal');
-			border: 1px solid getColor('teal');
+			padding-top: 2px;
+			color: oColorsGetPaletteColor('white');
+			background-color: oColorsGetPaletteColor('teal');
+			border: 1px solid oColorsGetPaletteColor('teal');
 			transform: rotate(-90deg);
 			@include oTypographySansBold(0);
 
 			span {
 				display: block;
-				margin-top: -7px;
 			}
 		}
 	}
 
 	// overriding o-overlay styles and positioning the feedback box
-	.o-overlay.o-overlay--feedback-overlay {
+	.o-overlay.o-overlay--modal {
 		/* Resetting the inline values first */
 		left: inherit!important;
 		margin-left: inherit!important;
@@ -56,14 +55,14 @@
 
 // Mobile only styles
 @include oGridRespondTo($until: M){
-	.o-overlay--feedback-overlay {
+	.o-overlay--modal {
 		top: 0;
 		z-index: 110;
 	}
 
 	.n-feedback__container {
 		display: block;
-		background: getColor('white');
+		background: oColorsGetPaletteColor('white');
 		text-align: center;
 		padding: 1em;
 		margin: 0 10px;
@@ -88,7 +87,7 @@
 	}
 }
 
-.o-overlay--feedback-overlay .o-overlay__content {
+.o-overlay--modal .o-overlay__content {
 	@include oTypographySans(0);
 
 	.n-feedback__primary-button {
@@ -122,8 +121,8 @@
 	}
 
 	.n-feedback__question-radio {
-		border-top: 1px solid getColor('slate');
-		border-bottom: 1px solid getColor('slate');
+		border-top: 1px solid oColorsGetPaletteColor('slate');
+		border-bottom: 1px solid oColorsGetPaletteColor('slate');
 		border-left: none;
 		border-right: none;
 		padding: 1em 0 0.4em 0;
