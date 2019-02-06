@@ -164,6 +164,7 @@ module.exports.init = (appInfo = {}) => {
 		const overlayId = `feedback-overlay-${containerSelector}`;
 		feedbackOverlay = new Overlay(overlayId, {
 			html: html,
+			class: 'feedback-overlay',
 			fullscreen: true,
 			zindex: 1001,
 			customclose: '.n-feedback__survey__close-button'

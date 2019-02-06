@@ -33,7 +33,7 @@
 	}
 
 	// overriding o-overlay styles and positioning the feedback box
-	.o-overlay.o-overlay--modal {
+	.o-overlay.feedback-overlay {
 		/* Resetting the inline values first */
 		left: inherit!important;
 		margin-left: inherit!important;
@@ -55,7 +55,7 @@
 
 // Mobile only styles
 @include oGridRespondTo($until: M){
-	.o-overlay--modal {
+	.feedback-overlay {
 		top: 0;
 		z-index: 110;
 	}
@@ -87,7 +87,7 @@
 	}
 }
 
-.o-overlay--modal .o-overlay__content {
+.feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 
 	.n-feedback__primary-button {
