@@ -13,9 +13,14 @@ function getSurveyData ( surveyId ){
 			'Accept': 'application/json',
 		}
 	}).then( res => {
+		if (res.status !== 200) {
+			res.text().then(txt => {
+				throw new Error(`Bad response status ${status}: ${txt}`);
+			});
+		}
 		return res.json();
-	}).catch( () => {
-		console.error('Failed to load survey: ', err);
+	}).catch( (err) => {
+		throw err;
 	});
 }
 
@@ -53,7 +58,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				.catch((err) => {
 					overlay.close();
 					hideFeedbackButton(containerSelector);
-					console.error('Failed to post form', err);
+					console.error('Failed to post form', err); // eslint-disable-line no-console
 				});
 		});
 	}
@@ -156,7 +161,7 @@ module.exports.init = (appInfo = {}) => {
 		} catch( err ){
 			container.classList.add('n-feedback--hidden');
 			trigger.classList.add('n-feedback--hidden');
-			console.error('Error at building survey', err);
+			console.error('Error at building survey', err); // eslint-disable-line no-console
 
 			return false;
 		};
@@ -181,12 +186,15 @@ module.exports.init = (appInfo = {}) => {
 				setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
 				// run Validation as soon as you display the first block
-				const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+				const firstBlock = document.querySelector('.n-feedback__survey-block', feedbackOverlay.content);
 				runValidation(firstBlock);
 			}
-		}
+		};
 
 		document.addEventListener('oOverlay.ready', setUpActions, { once: true });
+	})
+	.catch(err => {
+		console.error('Failed to load survey: ', err); // eslint-disable-line no-console
 	});
 
 	return {
