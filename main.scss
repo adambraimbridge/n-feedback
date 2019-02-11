@@ -51,6 +51,13 @@
 	.n-feedback__desktop__prompt {
 		display: none;
 	}
+
+	.feedback-overlay__loader-wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
 
 // Mobile only styles
@@ -89,6 +96,7 @@
 
 .feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
+	height: 100%;
 
 	.n-feedback__primary-button {
 		@include oButtons(default, primary);
@@ -159,6 +167,10 @@
 		.hidden-label span {
 			@include oNormaliseVisuallyHidden;
 		}
+	}
+
+	.n-feedback__question-footer {
+		margin: 1em 0;
 	}
 
 	.n-feedback__survey__button-bar {

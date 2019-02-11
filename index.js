@@ -141,21 +141,41 @@ function populateContainer (container) {
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	const { containerSelector = 'body' } = appInfo;
-	let surveyData, feedbackOverlay, setUpActions, overlayId;
+	let surveyData;
 
 	const container = document.querySelector(`${containerSelector} .n-feedback__container`);
 	container.classList.remove('n-feedback--hidden');
 	populateContainer(container);
 	const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
+	const overlayId = `feedback-overlay-${containerSelector}`;
+	const feedbackOverlay = new Overlay(overlayId, {
+		html: `<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>`,
+		fullscreen: true,
+		class: 'feedback-overlay',
+		zindex: 1001,
+		customclose: '.n-feedback__survey__close-button'
+	});
+
 	if (trigger) {
 		trigger.addEventListener('click', () => {
 			if (!surveyData) {
 				getSurveyData(surveyId).then( data => {
 					surveyData = data
-					let html = '';
+
 					try {
-						html = surveyBuilder.buildSurvey(surveyData, surveyId);
+						const html = surveyBuilder.buildSurvey(surveyData, surveyId);
+						// TODO: Validate the html
+						if (!feedbackOverlay.visible) {
+							feedbackOverlay.open();
+						}
+
+						feedbackOverlay.content.innerHTML = html;
+						setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+
+						// run Validation as soon as you display the first block
+						const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+						runValidation(firstBlock);
 					} catch( err ){
 						container.classList.add('n-feedback--hidden');
 						trigger.classList.add('n-feedback--hidden');
@@ -163,40 +183,16 @@ module.exports.init = (appInfo = {}) => {
 
 						return false;
 					};
-
-					overlayId = `feedback-overlay-${containerSelector}`;
-					feedbackOverlay = new Overlay(overlayId, {
-						html: html,
-						fullscreen: true,
-						class: 'feedback-overlay',
-						zindex: 1001,
-						customclose: '.n-feedback__survey__close-button'
-					});
-
-					toggleOverlay(feedbackOverlay);
 				});
-			} else {
-				toggleOverlay(feedbackOverlay);
 			}
+
+			toggleOverlay(feedbackOverlay);
 		}, true);
 	}
-
-	setUpActions = function (event) {
-		if (event.detail.el.id === overlayId) { // ensure we only run for this overlay
-			setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
-
-			// run Validation as soon as you display the first block
-			const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
-			runValidation(firstBlock);
-		}
-	}
-
-	document.addEventListener('oOverlay.ready', setUpActions, { once: true });
 
 	return {
 		destroy: () => {
 			if (feedbackOverlay) feedbackOverlay.destroy();
-			document.removeEventListener('oOverlay.ready', setUpActions, { once: true });
 		}
 	};
 };
