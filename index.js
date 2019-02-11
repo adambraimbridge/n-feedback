@@ -132,11 +132,11 @@ function hideFeedbackButton (containerSelector){
 	document.querySelector(`${containerSelector} .n-feedback__container`).classList.add('n-feedback--hidden');
 }
 
-function populateContainer (container) {
+function populateContainer (container, domain) {
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
 		<p class="n-feedback__desktop__prompt">
-			How easy or hard was it to use FT.com today?
+			How easy or hard was it to use ${domain} today?
 		</p>
 		<button class="n-feedback__survey-trigger" data-trackable="feedback-start">
 			<span>Feedback</span>
@@ -145,12 +145,12 @@ function populateContainer (container) {
 
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
-	const { containerSelector = 'body' } = appInfo;
+	const { containerSelector = 'body', domain = 'FT.com' } = appInfo;
 	let surveyData;
 
 	const container = document.querySelector(`${containerSelector} .n-feedback__container`);
 	container.classList.remove('n-feedback--hidden');
-	populateContainer(container);
+	populateContainer(container, domain);
 	const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
 	const overlayId = `feedback-overlay-${containerSelector}`;
