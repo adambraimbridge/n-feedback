@@ -13,9 +13,14 @@ function getSurveyData ( surveyId ){
 			'Accept': 'application/json',
 		}
 	}).then( res => {
+		if (res.status !== 200) {
+			res.text().then(txt => {
+				throw new Error(`Bad response status ${status}: ${txt}`);
+			});
+		}
 		return res.json();
-	}).catch( () => {
-		console.error('Failed to load survey: ', err);
+	}).catch( (err) => {
+		throw err;
 	});
 }
 
@@ -53,7 +58,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 				.catch((err) => {
 					overlay.close();
 					hideFeedbackButton(containerSelector);
-					console.error('Failed to post form', err);
+					console.error('Failed to post form', err); // eslint-disable-line no-console
 				});
 		});
 	}

@@ -122,7 +122,7 @@ function buildSurvey (surveyData, surveyId) {
 		question: buildQuestion
 	};
 
-	if ( surveyData && surveyData.length === 0 ) {
+	if ( !surveyData || (surveyData && surveyData.length === 0) ) {
 		throw new Error('Bad survey data');
 	}
 
