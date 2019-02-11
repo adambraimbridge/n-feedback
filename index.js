@@ -166,28 +166,32 @@ module.exports.init = (appInfo = {}) => {
 		trigger.addEventListener('click', () => {
 			if (!surveyData) {
 				getSurveyData(surveyId).then( data => {
-					surveyData = data
+					if ( !data || (data && data.length === 0) ) {
+						console.error('Bad survey data');
+					} else {
+						surveyData = data
 
-					try {
-						const html = surveyBuilder.buildSurvey(surveyData, surveyId);
-						// TODO: Validate the html
-						if (!feedbackOverlay.visible) {
-							feedbackOverlay.open();
-						}
+						try {
+							const html = surveyBuilder.buildSurvey(surveyData, surveyId);
+							// TODO: Validate the html
+							if (!feedbackOverlay.visible) {
+								feedbackOverlay.open();
+							}
 
-						feedbackOverlay.content.innerHTML = html;
-						setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+							feedbackOverlay.content.innerHTML = html;
+							setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
-						// run Validation as soon as you display the first block
-						const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
-						runValidation(firstBlock);
-					} catch( err ){
-						container.classList.add('n-feedback--hidden');
-						trigger.classList.add('n-feedback--hidden');
-						console.error('Error at building survey', err);
+							// run Validation as soon as you display the first block
+							const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+							runValidation(firstBlock);
+						} catch( err ){
+							container.classList.add('n-feedback--hidden');
+							trigger.classList.add('n-feedback--hidden');
+							console.error('Error at building survey', err);
 
-						return false;
-					};
+							return false;
+						};
+					}
 				});
 			}
 

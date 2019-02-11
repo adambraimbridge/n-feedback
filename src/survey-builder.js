@@ -122,10 +122,6 @@ function buildSurvey (surveyData, surveyId) {
 		question: buildQuestion
 	};
 
-	if ( !surveyData || (surveyData && surveyData.length === 0) ) {
-		throw new Error('Bad survey data');
-	}
-
 	const surveyHTML = [
 		`<div class="n-feedback__survey">
 			<a class="n-feedback__survey__close-button o-overlay__close" href="#void">
