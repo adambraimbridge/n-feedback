@@ -145,7 +145,10 @@ function populateContainer (container, domain) {
 
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
-	const { containerSelector = 'body', domain = 'FT.com' } = appInfo;
+	const {
+		containerSelector = 'body',
+		domain = 'FT.com'
+	} = appInfo;
 	let surveyData;
 
 	const container = document.querySelector(`${containerSelector} .n-feedback__container`);
@@ -172,7 +175,7 @@ module.exports.init = (appInfo = {}) => {
 						surveyData = data
 
 						try {
-							const html = surveyBuilder.buildSurvey(surveyData, surveyId);
+							const html = surveyBuilder.buildSurvey(surveyData, surveyId, domain);
 							// TODO: Validate the html
 							if (!feedbackOverlay.visible) {
 								feedbackOverlay.open();
