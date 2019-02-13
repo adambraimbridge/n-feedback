@@ -132,11 +132,11 @@ function hideFeedbackButton (containerSelector){
 	document.querySelector(`${containerSelector} .n-feedback__container`).classList.add('n-feedback--hidden');
 }
 
-function populateContainer (container) {
+function populateContainer (container, domain) {
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
 		<p class="n-feedback__desktop__prompt">
-			How easy or hard was it to use FT.com today?
+			How easy or hard was it to use ${domain} today?
 		</p>
 		<button class="n-feedback__survey-trigger" data-trackable="feedback-start">
 			<span>Feedback</span>
@@ -145,62 +145,66 @@ function populateContainer (container) {
 
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
-	const { containerSelector = 'body' } = appInfo;
-	let feedbackOverlay;
-	let setUpActions;
+	const {
+		containerSelector = 'body',
+		domain = 'FT.com'
+	} = appInfo;
+	let surveyData;
 
-	getSurveyData(surveyId).then( surveyData => {
-		const container = document.querySelector(`${containerSelector} .n-feedback__container`);
-		container.classList.remove('n-feedback--hidden');
-		populateContainer(container);
-		const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
+	const container = document.querySelector(`${containerSelector} .n-feedback__container`);
+	container.classList.remove('n-feedback--hidden');
+	populateContainer(container, domain);
+	const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
-		let html = '';
-		try {
-			html = surveyBuilder.buildSurvey(surveyData, surveyId);
-		} catch( err ){
-			container.classList.add('n-feedback--hidden');
-			trigger.classList.add('n-feedback--hidden');
-			console.error('Error at building survey', err); // eslint-disable-line no-console
-
-			return false;
-		};
-
-		const overlayId = `feedback-overlay-${containerSelector}`;
-		feedbackOverlay = new Overlay(overlayId, {
-			html: html,
-			class: 'feedback-overlay',
-			fullscreen: true,
-			zindex: 1001,
-			customclose: '.n-feedback__survey__close-button'
-		});
-
-		if (trigger) {
-			trigger.addEventListener('click', () => {
-				toggleOverlay(feedbackOverlay);
-			}, true);
-		}
-
-		setUpActions = function (event) {
-			if (event.detail.el.id === overlayId) { // ensure we only run for this overlay
-				setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
-
-				// run Validation as soon as you display the first block
-				const firstBlock = document.querySelector('.n-feedback__survey-block', feedbackOverlay.content);
-				runValidation(firstBlock);
-			}
-		};
-
-		document.addEventListener('oOverlay.ready', setUpActions, { once: true });
-	})
-	.catch(err => {
-		console.error('Failed to load survey: ', err); // eslint-disable-line no-console
+	const overlayId = `feedback-overlay-${containerSelector}`;
+	const feedbackOverlay = new Overlay(overlayId, {
+		html: `<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>`,
+		fullscreen: true,
+		class: 'feedback-overlay',
+		zindex: 1001,
+		customclose: '.n-feedback__survey__close-button'
 	});
+
+	if (trigger) {
+		trigger.addEventListener('click', () => {
+			if (!surveyData) {
+				getSurveyData(surveyId).then( data => {
+					if ( !data || (data && data.length === 0) ) {
+						console.error('Bad survey data');
+					} else {
+						surveyData = data
+
+						try {
+							const html = surveyBuilder.buildSurvey(surveyData, surveyId, domain);
+							// TODO: Validate the html
+							if (!feedbackOverlay.visible) {
+								feedbackOverlay.open();
+							}
+
+							feedbackOverlay.content.innerHTML = html;
+							setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+
+							// run Validation as soon as you display the first block
+							const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+							runValidation(firstBlock);
+						} catch( err ){
+							container.classList.add('n-feedback--hidden');
+							trigger.classList.add('n-feedback--hidden');
+							console.error('Error at building survey', err);
+
+							return false;
+						};
+					}
+				});
+			}
+
+			toggleOverlay(feedbackOverlay);
+		}, true);
+	}
 
 	return {
 		destroy: () => {
 			if (feedbackOverlay) feedbackOverlay.destroy();
-			document.removeEventListener('oOverlay.ready', setUpActions, { once: true });
 		}
 	};
 };

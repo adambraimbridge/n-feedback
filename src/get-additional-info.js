@@ -1,12 +1,23 @@
 function getAdditionalInfo (appInfo) {
-	const appName = appInfo.name;
-	const referrerUrl = document.referrer;
-	const currentUrl = document.URL;
+	const {
+		referrer: referrerUrl,
+		URL: currentUrl
+	} = document;
+
+	const {
+		name: appName,
+		product,
+		version,
+		nativeAppVersion
+	} = appInfo;
 
 	return {
 		appName,
 		currentUrl,
-		referrerUrl
+		referrerUrl,
+		product,
+		version,
+		...(nativeAppVersion ? { nativeAppVersion } : {})
 	};
 }
 

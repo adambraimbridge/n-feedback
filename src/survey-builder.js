@@ -114,17 +114,13 @@ function buildButtonBar (surveyLength, blockId){
 	return blockHTML.join('\n');
 }
 
-function buildSurvey (surveyData, surveyId) {
+function buildSurvey (surveyData, surveyId, domain) {
 	const builderMap = {
 		header: buildHeader,
 		footer: buildFooter,
 		text: buildText,
 		question: buildQuestion
 	};
-
-	if ( !surveyData || (surveyData && surveyData.length === 0) ) {
-		throw new Error('Bad survey data');
-	}
 
 	const surveyHTML = [
 		`<div class="n-feedback__survey">
@@ -141,6 +137,10 @@ function buildSurvey (surveyData, surveyId) {
 		const blockHTML = [`<div class="n-feedback__survey-block ${hiddenClass} n-feedback__survey-block-${blockId}">`];
 
 		block.questions.forEach( question => {
+			if (question.questionText.trim() === 'How easy or hard was it to use FT.com today?' && domain === 'app') {
+				question.questionText = question.questionText.replace('FT.com', `the ${domain}`);
+			}
+
 			const blockType = question.questionName.toLowerCase();
 			if( blockType in builderMap ){
 				const questionHTML = builderMap[blockType]( question );
