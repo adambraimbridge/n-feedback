@@ -11,14 +11,19 @@ function getAdditionalInfo (appInfo) {
 		nativeAppVersion
 	} = appInfo;
 
-	return {
+	const additionalInfo = {
 		appName,
 		currentUrl,
 		referrerUrl,
 		product,
-		version,
-		...(nativeAppVersion ? { nativeAppVersion } : {})
+		version
 	};
+
+	if (nativeAppVersion) {
+		additionalInfo.nativeAppVersion = nativeAppVersion;
+	}
+
+	return additionalInfo;
 }
 
 module.exports = getAdditionalInfo;
