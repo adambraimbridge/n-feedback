@@ -150,6 +150,7 @@ module.exports.init = (appInfo = {}) => {
 		domain = 'FT.com'
 	} = appInfo;
 	let surveyData;
+	let feedbackOverlay;
 
 	const container = document.querySelector(`${containerSelector} .n-feedback__container`);
 	container.classList.remove('n-feedback--hidden');
@@ -157,16 +158,18 @@ module.exports.init = (appInfo = {}) => {
 	const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
 	const overlayId = `feedback-overlay-${containerSelector}`;
-	const feedbackOverlay = new Overlay(overlayId, {
-		html: `<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>`,
-		fullscreen: true,
-		class: 'feedback-overlay',
-		zindex: 1001,
-		customclose: '.n-feedback__survey__close-button'
-	});
 
 	if (trigger) {
 		trigger.addEventListener('click', () => {
+			if (!feedbackOverlay) {
+				feedbackOverlay = new Overlay(overlayId, {
+					html: `<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>`,
+					fullscreen: true,
+					class: 'feedback-overlay',
+					zindex: 1001,
+					customclose: '.n-feedback__survey__close-button'
+				});
+			}
 			if (!surveyData) {
 				getSurveyData(surveyId).then( data => {
 					if ( !data || (data && data.length === 0) ) {
