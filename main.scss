@@ -3,6 +3,7 @@
 @import 'o-overlay/main';
 @import "o-icons/main";
 @import "o-colors/main";
+@import 'o-typography/main';
 
 @include oFormsBaseFeatures();
 @include oFormsRadioCheckboxFeatures();
@@ -51,13 +52,6 @@
 	.n-feedback__desktop__prompt {
 		display: none;
 	}
-
-	.feedback-overlay__loader-wrapper {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	}
 }
 
 // Mobile only styles
@@ -76,7 +70,6 @@
 
 		.n-feedback__survey-trigger {
 			@include oButtons(default, primary);
-			margin-bottom: 10px;
 
 			span {
 				text-transform: lowercase;
@@ -91,6 +84,16 @@
 
 	.n-feedback__desktop__prompt {
 		@include oTypographySansBold(0);
+		margin-bottom: oTypographySpacingSize($units: 3);
+	}
+}
+
+.feedback-overlay {
+	.feedback-overlay__loader-wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
 	}
 }
 
@@ -171,6 +174,10 @@
 
 	.n-feedback__question-footer {
 		margin: 1em 0;
+
+		a {
+			@include oTypographyLink();
+		}
 	}
 
 	.n-feedback__survey__button-bar {
