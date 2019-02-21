@@ -29,6 +29,8 @@
 			color: oColorsGetPaletteColor('white');
 			background-color: oColorsGetPaletteColor('teal');
 			border: 1px solid oColorsGetPaletteColor('teal');
+			// I had to add this to force GPU acceleration so it will also work with
+			// IPad where the button kept moving with the content on scroll
 			transform: translate3d(0,0,0) rotate(-90deg);
 			@include oTypographySansBold(0);
 
