@@ -8,6 +8,11 @@
 @include oFormsBaseFeatures();
 @include oFormsRadioCheckboxFeatures();
 
+@mixin centerForm {
+	max-width: 380px;
+	margin: 0 auto;
+}
+
 // Desktop styles
 @include oGridRespondTo($from: M){
 	.n-feedback__container {
@@ -24,7 +29,9 @@
 			color: oColorsGetPaletteColor('white');
 			background-color: oColorsGetPaletteColor('teal');
 			border: 1px solid oColorsGetPaletteColor('teal');
-			transform: rotate(-90deg);
+			// Forcing GPU acceleration to get the button working properly on IPad
+			// caused by a bug using fixed positioning along with safari web layer in App
+			transform: translate3d(0,0,0) rotate(-90deg);
 			@include oTypographySansBold(0);
 
 			span {
@@ -85,6 +92,10 @@
 	.n-feedback__desktop__prompt {
 		@include oTypographySansBold(0);
 		margin-bottom: oTypographySpacingSize($units: 3);
+	}
+
+	.n-feedback__center-block {
+		@include centerForm;
 	}
 }
 
@@ -150,7 +161,7 @@
 			padding: 0 0 10px 10px;
 
 			@include oGridRespondTo($until: M){
-				padding: 0 0 10px 30px;
+				@include centerForm;
 			}
 		}
 

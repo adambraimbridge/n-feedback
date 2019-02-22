@@ -1,6 +1,6 @@
 
 function buildHeader (question) {
-	return `<h3 class="n-feedback__question-header">${question.questionText}</h3>`;
+	return `<div class="n-feedback__center-block"><h3 class="n-feedback__question-header">${question.questionText}</h3></div>`;
 }
 
 function buildText (question) {
@@ -8,7 +8,7 @@ function buildText (question) {
 }
 
 function buildFooter (question) {
-	return `<p class="n-feedback__question-footer">${question.questionText}</p>`;
+	return `<div class="n-feedback__center-block"><p class="n-feedback__question-footer">${question.questionText}</p></div>`;
 }
 
 function buildQuestion (question) {
@@ -35,7 +35,7 @@ function buildMultipleChoiceQuestion (question) {
 	const html = [
 		`<fieldset class="n-feedback__question-radio" data-validation=${validation}>
 			<legend>${question.questionText}</legend>
-			<div class="n-feedback__question-radio__container">`
+			<div class="n-feedback__question-radio__container n-feedback__center-block">`
 	]; // fieldsets can't display: flex
 
 	const choices = Object.entries(question.choices).reverse();
@@ -69,17 +69,17 @@ function buildTextEntryQuestion (question) {
 	const fieldId = `text-${question.questionId}-${~~(Math.random()*0xffff)}`;
 
 	const html =
-		`<p class="n-feedback__question-text-entry o-forms">
+		`<div class="n-feedback__center-block"><p class="n-feedback__question-text-entry o-forms">
 			<label for="${fieldId}" class="o-forms__label">${question.questionText}</label>
 			<textarea id="${fieldId}" name="${question.questionId}" class="o-forms__textarea"></textarea>
-		</p>`;
+		</p></div>`;
 
 	return html;
 }
 
 function buildButtonBar (surveyLength, blockId){
 	const blockHTML = [];
-	blockHTML.push('<p class="n-feedback__survey__button-bar">');
+	blockHTML.push('<div class="n-feedback__center-block"><p class="n-feedback__survey__button-bar">');
 
 	if( blockId > 0 ) {
 		blockHTML.push(
@@ -109,7 +109,7 @@ function buildButtonBar (surveyLength, blockId){
 		);
 	}
 
-	blockHTML.push('</p>');
+	blockHTML.push('</p></div>');
 
 	return blockHTML.join('\n');
 }
