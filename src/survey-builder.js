@@ -1,4 +1,6 @@
 
+const dictionary = require('./dictionary');
+
 function buildHeader (question) {
 	return `<div class="n-feedback__center-block"><h3 class="n-feedback__question-header">${question.questionText}</h3></div>`;
 }
@@ -138,7 +140,7 @@ function buildSurvey (surveyData, surveyId, domain) {
 
 		block.questions.forEach( question => {
 			if (question.questionText.trim() === 'How easy or hard was it to use FT.com today?' && domain === 'app') {
-				question.questionText = question.questionText.replace('FT.com', `the ${domain}`);
+				question.questionText = dictionary[domain].formHead;
 			}
 
 			const blockType = question.questionName.toLowerCase();

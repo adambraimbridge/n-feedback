@@ -2,6 +2,7 @@ const Overlay = require('o-overlay');
 const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
 const getAdditionalInfo = require('./src/get-additional-info');
+const dictionary = require('./src/dictionary');
 require('formdata-polyfill');
 
 function getSurveyData ( surveyId ){
@@ -133,10 +134,11 @@ function hideFeedbackButton (containerSelector){
 }
 
 function populateContainer (container, domain) {
+	const text = dictionary[domain].formHead;
 	container.innerHTML =
 		`<div class="n-feedback__overlay__container"></div>
 		<p class="n-feedback__desktop__prompt">
-			How easy or hard was it to use ${domain} today?
+			${text}
 		</p>
 		<button class="n-feedback__survey-trigger" data-trackable="feedback-start">
 			<span>Feedback</span>
