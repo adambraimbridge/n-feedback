@@ -52,15 +52,16 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 			const additionalData = getAdditionalInfo(appInfo);
 
 			postResponse(surveyId, surveyData, surveyResponse, additionalData)
-				.then(() => {
-					overlay.close();
-					hideFeedbackButton(containerSelector);
-				})
 				.catch((err) => {
-					overlay.close();
-					hideFeedbackButton(containerSelector);
+					// TODO: Manage fallback solution with local store and retry.
+					// https://github.com/Financial-Times/next-feedback-api/issues/46
 					console.error('Failed to post form', err); // eslint-disable-line no-console
 				});
+			// TODO: Give user confirmation of success of failure
+			// https://github.com/Financial-Times/next-feedback-api/issues/47
+			overlay.close();
+			hideFeedbackButton(containerSelector);
+
 		});
 	}
 
