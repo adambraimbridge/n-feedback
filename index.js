@@ -1,6 +1,6 @@
 const Overlay = require('o-overlay');
 const surveyBuilder = require('./src/survey-builder');
-const postResponse = require('./src/post-response');
+const storeAndRetry = require('./src/lib/store-and-retry');
 const getAdditionalInfo = require('./src/get-additional-info');
 const dictionary = require('./src/dictionary');
 require('formdata-polyfill');
@@ -25,7 +25,7 @@ function getSurveyData ( surveyId ){
 	});
 }
 
-function setBehaviour (overlay, surveyData, surveyId, appInfo) {
+function setBehaviour (overlay, surveyData, surveyId, appInfo, storeAndRetryInstance) {
 	const context = overlay.content;
 	const { containerSelector = 'body' } = appInfo;
 
@@ -51,16 +51,11 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 			const surveyResponse = generateResponse(overlay);
 			const additionalData = getAdditionalInfo(appInfo);
 
-			postResponse(surveyId, surveyData, surveyResponse, additionalData)
-				.catch((err) => {
-					// TODO: Manage fallback solution with local store and retry.
-					// https://github.com/Financial-Times/next-feedback-api/issues/46
-					console.error('Failed to post form', err); // eslint-disable-line no-console
-				});
+			storeAndRetryInstance.postResponseWithRetry(surveyId, surveyData, surveyResponse, additionalData);
 			// TODO: Give user confirmation of success of failure
 			// https://github.com/Financial-Times/next-feedback-api/issues/47
-			overlay.close();
-			hideFeedbackButton(containerSelector);
+			// overlay.close();
+			// hideFeedbackButton(containerSelector);
 
 		});
 	}
@@ -168,6 +163,9 @@ module.exports.init = (appInfo = {}) => {
 	const trigger = document.querySelector(`${containerSelector} .n-feedback__container .n-feedback__survey-trigger`);
 
 	const overlayId = `feedback-overlay-${containerSelector}`;
+	// storeAndRetry is a singleton shared across multiple possible
+	// instances of n-feedback (for instance like the mobile App).
+	const storeAndRetryInstance = storeAndRetry.init();
 
 	if (trigger) {
 		trigger.addEventListener('click', () => {
