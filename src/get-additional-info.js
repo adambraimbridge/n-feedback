@@ -8,7 +8,8 @@ function getAdditionalInfo (appInfo) {
 		name: appName,
 		product,
 		version,
-		nativeAppVersion
+		nativeAppVersion,
+		domain
 	} = appInfo;
 
 	const additionalInfo = {
@@ -16,7 +17,8 @@ function getAdditionalInfo (appInfo) {
 		currentUrl,
 		referrerUrl,
 		product,
-		version
+		version,
+		domain
 	};
 
 	if (nativeAppVersion) {
