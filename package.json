@@ -15,13 +15,13 @@
     "commitmsg": "node_modules/.bin/secret-squirrel-commitmsg"
   },
   "devDependencies": {
-    "@financial-times/n-gage": "^3.0.0",
+    "@financial-times/n-gage": "^3.4.2",
     "@financial-times/n-internal-tool": "^2.3.1",
     "bower": "^1.8.0",
     "bower-resolve-webpack-plugin": "^1.0.4",
     "chai": "^4.2.0",
-    "eslint": "^5.8.0",
     "enhanced-resolve": "^3.1.0",
+    "eslint": "^5.8.0",
     "isomorphic-fetch": "^2.2.1",
     "jsdom": "^12.2.0",
     "lintspaces-cli": "^0.6.0",
