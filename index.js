@@ -146,12 +146,22 @@ function populateContainer (container, domain) {
 		</button>`;
 }
 
+const setAppInfoDefault = ({
+	domain = 'FT.com',
+	containerSelector = 'body',
+	...rest
+}) => ({
+	domain,
+	containerSelector,
+	...rest
+})
+
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
 	const {
-		containerSelector = 'body',
-		domain = 'FT.com'
-	} = appInfo;
+		containerSelector,
+		domain
+	} = setAppInfoDefault(appInfo);
 	let surveyData;
 	let feedbackOverlay;
 
