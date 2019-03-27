@@ -154,7 +154,7 @@ const setAppInfoDefault = ({
 	domain,
 	containerSelector,
 	...rest
-})
+});
 
 module.exports.init = (appInfo = {}) => {
 	const surveyId = 'SV_9mBFdO5zpERO0cZ';
@@ -176,7 +176,7 @@ module.exports.init = (appInfo = {}) => {
 		trigger.addEventListener('click', () => {
 			if (!feedbackOverlay) {
 				feedbackOverlay = new Overlay(overlayId, {
-					html: `<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>`,
+					html: '<div class="feedback-overlay__loader-wrapper"><div class="o-loading o-loading--dark o-loading--large"></div></div>',
 					fullscreen: true,
 					class: 'feedback-overlay',
 					zindex: 1001,
@@ -186,9 +186,10 @@ module.exports.init = (appInfo = {}) => {
 			if (!surveyData) {
 				getSurveyData(surveyId).then( data => {
 					if ( !data || (data && data.length === 0) ) {
+						// eslint-disable-next-line no-console
 						console.error('Bad survey data');
 					} else {
-						surveyData = data
+						surveyData = data;
 
 						try {
 							const html = surveyBuilder.buildSurvey(surveyData, surveyId, domain);
@@ -206,6 +207,7 @@ module.exports.init = (appInfo = {}) => {
 						} catch( err ){
 							container.classList.add('n-feedback--hidden');
 							trigger.classList.add('n-feedback--hidden');
+							// eslint-disable-next-line no-console
 							console.error('Error at building survey', err);
 
 							return false;
