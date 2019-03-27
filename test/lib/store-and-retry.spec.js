@@ -11,7 +11,7 @@ const defaultResponse = {
   additionalData
 };
 
-describe.only("Store and retry", () => {
+describe("Store and retry", () => {
   describe("provides fault tolerancy to not lose users feedbacks", () => {
     describe("attemptToPostPrestoredResponses should be run on load", () => {
       it("resolves immediately if there are no stored responses", done => {

@@ -54,8 +54,8 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo, storeAndRetryInst
 			storeAndRetryInstance.postResponseWithRetry(surveyId, surveyData, surveyResponse, additionalData);
 			// TODO: Give user confirmation of success of failure
 			// https://github.com/Financial-Times/next-feedback-api/issues/47
-			// overlay.close();
-			// hideFeedbackButton(containerSelector);
+			overlay.close();
+			hideFeedbackButton(containerSelector);
 
 		});
 	}
