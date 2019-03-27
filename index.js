@@ -194,7 +194,7 @@ module.exports.init = (appInfo = {}) => {
 							}
 
 							feedbackOverlay.content.innerHTML = html;
-							setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
+							setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo, storeAndRetryInstance);
 
 							// run Validation as soon as you display the first block
 							const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
