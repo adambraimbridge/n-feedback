@@ -5,4 +5,4 @@ module.exports = {
 	'FT.com': {
 		formHead: 'How easy or hard was it to use FT.com today?'
 	}
-}
+};
