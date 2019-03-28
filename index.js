@@ -166,6 +166,8 @@ module.exports.init = (appInfo = {}) => {
 	// storeAndRetry is a singleton shared across multiple possible
 	// instances of n-feedback (for instance like the mobile App).
 	const storeAndRetryInstance = storeAndRetry.init();
+	// Attempt to resend existing (not posted already) responses.
+	storeAndRetry.attemptToPostPrestoredResponses();
 
 	if (trigger) {
 		trigger.addEventListener('click', () => {
