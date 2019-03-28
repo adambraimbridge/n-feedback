@@ -167,7 +167,7 @@ module.exports.init = (appInfo = {}) => {
 	// instances of n-feedback (for instance like the mobile App).
 	const storeAndRetryInstance = storeAndRetry.init();
 	// Attempt to resend existing (not posted already) responses.
-	storeAndRetry.attemptToPostPrestoredResponses();
+	storeAndRetryInstance.attemptToPostPrestoredResponses();
 
 	if (trigger) {
 		trigger.addEventListener('click', () => {

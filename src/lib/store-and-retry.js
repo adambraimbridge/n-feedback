@@ -106,7 +106,7 @@ function stopAndClearLocalData () {
 }
 
 class StoreAndRetry {
-	constructor (config, bypassSingleton = false) {
+	constructor (config = {}, bypassSingleton = false) {
 		if (!StoreAndRetry.instance || bypassSingleton) {
 			attempts = 0;
 			// Override defaults values.
