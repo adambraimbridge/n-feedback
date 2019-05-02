@@ -187,30 +187,21 @@ module.exports.init = (appInfo = {}) => {
 						console.error('Bad survey data');
 					} else {
 						surveyData = data;
+						const html = surveyBuilder.buildSurvey(surveyData, surveyId, domain);
+						// TODO: Validate the html
+						if (!feedbackOverlay.visible) {
+							feedbackOverlay.open();
+						}
 
-						try {
-							const html = surveyBuilder.buildSurvey(surveyData, surveyId, domain);
-							// TODO: Validate the html
-							if (!feedbackOverlay.visible) {
-								feedbackOverlay.open();
-							}
+						feedbackOverlay.content.innerHTML = html;
+						setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
 
-							feedbackOverlay.content.innerHTML = html;
-							setBehaviour(feedbackOverlay, surveyData, surveyId, appInfo);
-
-							// run Validation as soon as you display the first block
-							const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
-							runValidation(firstBlock);
-						} catch( err ){
-							container.classList.add('n-feedback--hidden');
-							trigger.classList.add('n-feedback--hidden');
-							// eslint-disable-next-line no-console
-							console.error('Error at building survey', err);
-
-							return false;
-						};
+						// run Validation as soon as you display the first block
+						const firstBlock = document.querySelectorAll('.n-feedback__survey-block', feedbackOverlay.content)[0];
+						runValidation(firstBlock);
 					}
 				}).catch((err)=> {
+					// In case survey fetch fails
 					feedbackOverlay.destroy();
 					container.classList.add('n-feedback--hidden');
 					trigger.classList.add('n-feedback--hidden');
