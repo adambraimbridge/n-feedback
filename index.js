@@ -215,7 +215,7 @@ module.exports.init = (appInfo = {}) => {
 					container.classList.add('n-feedback--hidden');
 					trigger.classList.add('n-feedback--hidden');
 					// eslint-disable-next-line no-console
-					console.error('Error at building survey', err);
+					console.error('Failed to get survey data', err);
 				});
 			}
 
