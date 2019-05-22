@@ -2,7 +2,7 @@
 const dictionary = require('./dictionary');
 
 function buildHeader (question) {
-	return `<div class="n-feedback__center-block"><h3 class="n-feedback__question-header">${question.questionText}</h3></div>`;
+	return `<div class="n-feedback__center-block"><h2 class="n-feedback__question-header">${question.questionText}</h2></div>`;
 }
 
 function buildText (question) {
