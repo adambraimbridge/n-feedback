@@ -59,8 +59,8 @@ describe('postResponse()', () => {
 		it('should include the question ID', async () => {
 			const firstQuestionId = 'QID6';
 			const postNock = nock(feedbackApi)
-			.post('/survey', body => body.surveyResponse[0] && body.surveyResponse[0].id === firstQuestionId)
-			.reply(200);
+				.post('/survey', body => body.surveyResponse[0] && body.surveyResponse[0].id === firstQuestionId)
+				.reply(200);
 
 			await postResponse(surveyId, surveyData, responses, additionalData);
 			expect(postNock.isDone()).to.be.true;
@@ -69,8 +69,8 @@ describe('postResponse()', () => {
 		it('should include the question text', async () => {
 			const firstQuestionText = 'How easy was your visit to FT.com today?';
 			const postNock = nock(feedbackApi)
-			.post('/survey', body => body.surveyResponse[0] && body.surveyResponse[0].text === firstQuestionText)
-			.reply(200);
+				.post('/survey', body => body.surveyResponse[0] && body.surveyResponse[0].text === firstQuestionText)
+				.reply(200);
 
 			await postResponse(surveyId, surveyData, responses, additionalData);
 			expect(postNock.isDone()).to.be.true;

@@ -63,7 +63,7 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 					// TODO: Manage fallback solution with local store and retry.
 					// https://github.com/Financial-Times/next-feedback-api/issues/46
 					console.error('Failed to post form', err); // eslint-disable-line no-console
-					overlay.close()
+					overlay.close();
 				});
 		});
 	}
