@@ -122,7 +122,7 @@ function buildSurvey (surveyData, surveyId, domain) {
 	};
 
 	const surveyHTML = [
-		`<div class="n-feedback__survey">
+		`<div class="n-feedback__survey" aria-live="assertive">
 			<a class="n-feedback__survey__close-button o-overlay__close" href="#void">
 				<span>I don't want to give feedback</span>
 			</a>
