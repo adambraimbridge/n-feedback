@@ -60,10 +60,7 @@ function buildMultipleChoiceQuestion (question) {
 		);
 	});
 
-	html.push(
-			`</div>
-		</fieldset>`
-	);
+	html.push('</div></fieldset>');
 	return html.join('\n');
 }
 
@@ -157,7 +154,12 @@ function buildSurvey (surveyData, surveyId, domain) {
 		surveyHTML.push(blockHTML.join('\n'));
 	});
 
-	surveyHTML.push('</form></div>');
+	surveyHTML.push('</form>');
+
+	surveyHTML.push('<div class="n-feedback__survey-block feedback-overlay__loader-wrapper n-feedback--hidden"><div class="o-loading o-loading--dark o-loading--large"></div></div>');
+	surveyHTML.push('<div class="n-feedback__survey-block n-feedback--hidden n-feedback__survey-block-finished">Done thanks lol</div>');
+
+	surveyHTML.push('</div>');
 	return surveyHTML.join('\n');
 }
 

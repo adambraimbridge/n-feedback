@@ -51,17 +51,20 @@ function setBehaviour (overlay, surveyData, surveyId, appInfo) {
 			const surveyResponse = generateResponse(overlay);
 			const additionalData = getAdditionalInfo(appInfo);
 
+			displayBlock(overlay, '.feedback-overlay__loader-wrapper');
 			postResponse(surveyId, surveyData, surveyResponse, additionalData)
+				.then(() => {
+					displayBlock(overlay, '.n-feedback__survey-block-finished');
+					overlay.wrapper.addEventListener('oOverlay.destroy', () => {
+						hideFeedbackButton(containerSelector);
+					});
+				})
 				.catch((err) => {
 					// TODO: Manage fallback solution with local store and retry.
 					// https://github.com/Financial-Times/next-feedback-api/issues/46
 					console.error('Failed to post form', err); // eslint-disable-line no-console
+					overlay.close()
 				});
-			// TODO: Give user confirmation of success of failure
-			// https://github.com/Financial-Times/next-feedback-api/issues/47
-			overlay.close();
-			hideFeedbackButton(containerSelector);
-
 		});
 	}
 
