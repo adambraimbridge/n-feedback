@@ -60,10 +60,7 @@ function buildMultipleChoiceQuestion (question) {
 		);
 	});
 
-	html.push(
-			`</div>
-		</fieldset>`
-	);
+	html.push('</div></fieldset>');
 	return html.join('\n');
 }
 
@@ -125,7 +122,7 @@ function buildSurvey (surveyData, surveyId, domain) {
 	};
 
 	const surveyHTML = [
-		`<div class="n-feedback__survey">
+		`<div class="n-feedback__survey" aria-live="assertive">
 			<a class="n-feedback__survey__close-button o-overlay__close" href="#void">
 				<span>I don't want to give feedback</span>
 			</a>
@@ -157,7 +154,29 @@ function buildSurvey (surveyData, surveyId, domain) {
 		surveyHTML.push(blockHTML.join('\n'));
 	});
 
-	surveyHTML.push('</form></div>');
+	surveyHTML.push('</form>');
+
+	surveyHTML.push('<div class="n-feedback__survey-block feedback-overlay__loader-wrapper n-feedback--hidden"><div class="o-loading o-loading--dark o-loading--large"></div></div>');
+
+	// grab the first text block. this is a nice blurb to use for a message
+	const feedbackQuestion = surveyData.map(block => block.questions.find(
+		question => question.questionName === 'Text'
+	))[0];
+
+	surveyHTML.push(
+		`<div class="n-feedback__survey-block n-feedback--hidden n-feedback__survey-block-finished">
+			${buildHeader({questionText: 'Thanks for your feedback'})}
+
+			${feedbackQuestion ? buildFooter(feedbackQuestion) : ''}
+
+			<div class="n-feedback__center-block"><p class="n-feedback__survey__button-bar">
+				<button class="n-feedback__primary-button o-overlay__close">
+					Close
+				</button>
+		</div>`
+	);
+
+	surveyHTML.push('</div>');
 	return surveyHTML.join('\n');
 }
 

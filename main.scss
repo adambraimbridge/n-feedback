@@ -202,6 +202,20 @@
 	display: none;
 }
 
+.n-feedback__survey-block-finished {
+	.n-feedback__question-header::before {
+		@include oIconsGetIcon('tick', oColorsGetPaletteColor('black'), 48);
+		content: '';
+		vertical-align: middle;
+	}
+
+	// we're using the o-overlay__close class on this button just
+	// for the behaviour, so remove the icon
+	.n-feedback__primary-button.o-overlay__close {
+		background-image: none;
+	}
+}
+
 // Hide on ad overlap
 @media (min-width: 980px) and (max-width: 1000px)  {
 	.n-feedback__container {
