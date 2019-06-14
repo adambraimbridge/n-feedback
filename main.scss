@@ -117,6 +117,8 @@
 		@include oButtons(default, primary);
 	}
 
+	// Visually hide the feedback buttons (i.e. submit/back) when they are inactive.
+	// This became an option in o-buttons@[^5.16.6](https://github.com/Financial-Times/o-buttons/pull/202).
 	.n-feedback__primary-button[disabled] {
 		visibility: hidden;
 	}
