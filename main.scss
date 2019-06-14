@@ -117,6 +117,10 @@
 		@include oButtons(default, primary);
 	}
 
+	.n-feedback__primary-button[disabled] {
+		visibility: hidden;
+	}
+
 	.n-feedback__survey__close-button {
 		border-bottom: none;
 		margin-top: -10px;
