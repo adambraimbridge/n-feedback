@@ -3,12 +3,11 @@ const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
 const getAdditionalInfo = require('./src/get-additional-info');
 const dictionary = require('./src/dictionary');
-require('formdata-polyfill');
 
 function getSurveyData ( surveyId ){
-	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
-	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
+	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json'; // for local development
+	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`; // for local development via npm linking
+	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`; // production link
 	return fetch(surveyDataURL, {
 		headers: {
 			'Accept': 'application/json',
@@ -121,10 +120,24 @@ function validate (block){
 function generateResponse (overlay){
 	const context = overlay.content;
 	const form = document.querySelector('.n-feedback__survey__wrapper-form', context);
-	const response = {};
-	(new FormData(form)).forEach((val, key) => {
-		response[key] = val;
-	});
+	const formInputs = form.getElementsByTagName('input');
+	const formTextArea = form.getElementsByTagName('textArea');
+	const questionID = formInputs.item(1).name;
+	const textFieldId = formTextArea.item(0).name;
+	const textFieldValue = formTextArea.item(0).value;
+	let formSurveyId;
+	let formChecked;
+
+	for (let i = 0; i < formInputs.length; i++) {
+		if (formInputs[i].name === 'surveyId') { formSurveyId = formInputs[i].value; }
+		if (formInputs[i].checked === true) { formChecked = formInputs[i].value; }
+	}
+
+	const response = {
+		surveyId: formSurveyId,
+		[questionID]: formChecked,
+		[textFieldId]: textFieldValue
+	};
 
 	return response;
 }
