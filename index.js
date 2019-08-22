@@ -120,26 +120,27 @@ function validate (block){
 function generateResponse (overlay){
 	const context = overlay.content;
 	const form = document.querySelector('.n-feedback__survey__wrapper-form', context);
-	const formInputs = form.getElementsByTagName('input');
-	const formTextArea = form.getElementsByTagName('textArea');
-	const questionID = formInputs.item(1).name;
-	const textFieldId = formTextArea.item(0).name;
-	const textFieldValue = formTextArea.item(0).value;
-	let formSurveyId;
-	let formChecked;
+	const data = {};
 
-	for (let i = 0; i < formInputs.length; i++) {
-		if (formInputs[i].name === 'surveyId') { formSurveyId = formInputs[i].value; }
-		if (formInputs[i].checked === true) { formChecked = formInputs[i].value; }
-	}
+	form.querySelectorAll('input,textarea').forEach((element) => {
+		if (element.type === 'radio') {
+			if (element.checked) {
+				data[element.name] = element.value;
+			}
+		}
 
-	const response = {
-		surveyId: formSurveyId,
-		[questionID]: formChecked,
-		[textFieldId]: textFieldValue
-	};
+		else if (element.type === 'checkbox') {
+			if (element.checked) {
+				data[element.name] = (data[element.name] || []).concat(element.value);
+			}
+		}
 
-	return response;
+		else {
+			data[element.name] = element.value;
+		}
+	});
+
+	return data;
 }
 
 function toggleOverlay (overlay){
