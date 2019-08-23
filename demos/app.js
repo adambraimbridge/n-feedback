@@ -26,6 +26,14 @@ app.get('/', (req, res) => {
 	});
 });
 
+app.get('/simple', (req, res) => {
+	res.render('demo-simple', {
+		title: 'Test App',
+		question: 'How was your visit today?',
+		type: 'radio-buttons'
+	});
+});
+
 function runPa11yTests () {
 	const spawn = require('child_process').spawn;
 	const pa11y = spawn('pa11y-ci');

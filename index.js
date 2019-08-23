@@ -3,12 +3,11 @@ const surveyBuilder = require('./src/survey-builder');
 const postResponse = require('./src/post-response');
 const getAdditionalInfo = require('./src/get-additional-info');
 const dictionary = require('./src/dictionary');
-require('formdata-polyfill');
 
 function getSurveyData ( surveyId ){
-	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json';
-	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`;
-	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`;
+	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json'; // for local development
+	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`; // for local development via npm linking
+	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`; // production link
 	return fetch(surveyDataURL, {
 		headers: {
 			'Accept': 'application/json',
@@ -121,12 +120,27 @@ function validate (block){
 function generateResponse (overlay){
 	const context = overlay.content;
 	const form = document.querySelector('.n-feedback__survey__wrapper-form', context);
-	const response = {};
-	(new FormData(form)).forEach((val, key) => {
-		response[key] = val;
+	const data = {};
+
+	form.querySelectorAll('input,textarea').forEach((element) => {
+		if (element.type === 'radio') {
+			if (element.checked) {
+				data[element.name] = element.value;
+			}
+		}
+
+		else if (element.type === 'checkbox') {
+			if (element.checked) {
+				data[element.name] = (data[element.name] || []).concat(element.value);
+			}
+		}
+
+		else {
+			data[element.name] = element.value;
+		}
 	});
 
-	return response;
+	return data;
 }
 
 function toggleOverlay (overlay){
