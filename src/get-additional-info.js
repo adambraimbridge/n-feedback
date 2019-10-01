@@ -5,15 +5,16 @@ function getAdditionalInfo (appInfo) {
 	} = document;
 
 	const {
-		name: appName,
+		appName,
 		product,
 		version,
 		nativeAppVersion,
 		domain
 	} = appInfo;
 
-	const additionalInfo = {
-		appName,
+		const additionalInfo = {
+		// TODO: Once Page Kit has been rolled out across all apps, this appInfo.name bit should be removed.
+		appName: appName || appInfo.name,
 		currentUrl,
 		referrerUrl,
 		product,
