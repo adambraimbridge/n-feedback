@@ -10,7 +10,7 @@ describe('getAdditionalInfo()', () => {
 	};
 	const { document } = (new JSDOM('', domOptions)).window;
 	const appInfo = {
-		name: 'stream'
+		appName: 'stream'
 	};
 
 	let originalDoc;
@@ -39,6 +39,11 @@ describe('getAdditionalInfo()', () => {
 	});
 
 	it('should return the app name from the app info it receives', () => {
+		expect(additionalInfo.appName).to.equal('stream');
+	});
+
+	it('LEGACY: should also return the app name from the pre-page-kit app info it receives', () => {
+		additionalInfo = getAdditionalInfo({ name: 'stream' });
 		expect(additionalInfo.appName).to.equal('stream');
 	});
 });
