@@ -120,8 +120,11 @@
 .feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 	height: 100%;
-	padding: 20px;
 	overflow: hidden;
+	// o-overlay v2.7.11 styles .o-overlay__content with `padding: 20px;`,
+	// o-overlay v3.0.0 styles .o-overlay__content with `oSpacingByName('s4')`, which evaluates to 16px,
+	// and so needs to be overwritten with below line to maintain padding of 20px.
+	padding: oSpacingByIncrement(5);
 
 	.n-feedback__primary-button {
 		@include oButtonsContent($opts: (
