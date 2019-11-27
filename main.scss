@@ -120,7 +120,6 @@
 .feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 	height: 100%;
-	overflow: hidden;
 	// o-overlay v2.7.11 styles .o-overlay__content with `padding: 20px;`,
 	// o-overlay v3.0.0 styles .o-overlay__content with `oSpacingByName('s4')`, which evaluates to 16px,
 	// and so needs to be overwritten with below line to maintain padding of 20px.
@@ -145,6 +144,19 @@
 
 		span {
 			@include oNormaliseVisuallyHidden;
+		}
+
+		// o-overlay v2.7.11 styles .n-feedback__survey__close-button:after with
+		// absolute positioning (all sides) of `-10px`,
+		// o-overlay v3.0.0 styles .n-feedback__survey__close-button:after with
+		// absolute positioning (all sides) of `-(oSpacingByName('s3'))`, which evaluates to -12px,
+		// and so needs to be overwritten with below lines to maintain absolute positioning (all sides) of -10px,
+		// else it results in the unwanted side effect of overflow scroll bars in the overlay.
+		&:after {
+			top: -10px;
+			right: -10px;
+			bottom: -10px;
+			left: -10px;
 		}
 	}
 
