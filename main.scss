@@ -188,9 +188,7 @@
 		}
 
 		.n-feedback__question-radio__container {
-			position: relative;
 			display: flex;
-			max-width: 380px;
 			padding: 0 10px 10px;
 
 			@include oGridRespondTo($until: M){
