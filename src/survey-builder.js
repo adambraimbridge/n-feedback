@@ -53,9 +53,9 @@ function buildMultipleChoiceQuestion (question) {
 		html.push(
 			`<div class="n-feedback__question-radio__choice-container">
 				<div class="o-forms-field">
-					<div class="o-forms-input">
-						<input type="radio" id="${fieldId}" class="o-forms__radio" name="${question.questionId}" value="${choiceId}" />
-						<label for="${fieldId}" class="o-forms__label ${textVisibility}">
+					<div class="o-forms-input o-forms-input--radio-round o-forms-input--inline">
+						<input type="radio" id="${fieldId}" name="${question.questionId}" value="${choiceId}" />
+						<label for="${fieldId}" class="o-forms-input__label ${textVisibility}">
 							<span class="n-feedback__question-radio-text">${choice.choiceText}</span>
 						</label>
 					</div>
@@ -73,10 +73,18 @@ function buildTextEntryQuestion (question) {
 
 	const html =
 		`<div class="n-feedback__center-block">
-			<p class="n-feedback__question-text-entry o-forms">
-				<label for="${fieldId}" class="o-forms__label">${question.questionText}</label>
-				<textarea id="${fieldId}" name="${question.questionId}" class="o-forms__textarea"></textarea>
-			</p>
+			<div class="n-feedback__question-text-entry o-forms">
+				<div class="o-forms-field">
+					<label for="${fieldId}" class="o-forms-label">
+						<span class="o-forms-title">
+							<span class="o-forms-title__main">${question.questionText}</span>
+						</span>
+						<span class="o-forms-input o-forms-input--textarea">
+							<textarea id="${fieldId}" name="${question.questionId}"></textarea>
+						</span>
+					</label>
+				</div>
+			</div>
 		</div>`;
 
 	return html;

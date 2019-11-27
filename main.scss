@@ -6,13 +6,7 @@
 @import 'o-typography/main';
 @import 'o-loading/main';
 
-@include oForms($opts: (
-	'elements': (
-		'text',
-		'checkbox'
-	)
-));
-
+@include oForms();
 @include oOverlay();
 
 @mixin centerForm {
@@ -160,6 +154,10 @@
 		}
 	}
 
+	.n-feedback__survey__wrapper-form {
+		margin: 0;
+	}
+
 	.n-feedback__question-header {
 		@include oTypographySans(0);
 		margin: 0 0 1em 0;
@@ -170,9 +168,19 @@
 	}
 
 	.n-feedback__question-text-entry {
-		textarea {
-			min-height: 126px;
-			resize: none;
+		margin: 0;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		.o-forms-field {
+			margin-bottom: 20px;
+			display: block;
+
+			textarea {
+				min-height: 126px;
+				resize: none;
+				margin-top: 12px;
+			}
 		}
 	}
 
@@ -194,19 +202,24 @@
 			@include oGridRespondTo($until: M){
 				@include centerForm;
 			}
+		}
+
+		.n-feedback__question-radio__choice-container {
+			flex-grow: 1;
+			text-align: center;
 
 			.o-forms-field {
 				margin-bottom: 0;
 
 				.o-forms-input {
 					margin-top: 0;
+					justify-content: center;
+
+					label {
+						margin: 0;
+					}
 				}
 			}
-		}
-
-		.n-feedback__question-radio__choice-container {
-			flex-grow: 1;
-			text-align: center;
 		}
 
 		label {
