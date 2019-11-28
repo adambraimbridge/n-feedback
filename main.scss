@@ -1,13 +1,19 @@
 @import 'o-buttons/main';
 @import 'o-forms/main';
 @import 'o-overlay/main';
-@import "o-icons/main";
-@import "o-colors/main";
+@import 'o-icons/main';
+@import 'o-colors/main';
 @import 'o-typography/main';
 @import 'o-loading/main';
 
-@include oFormsBaseFeatures();
-@include oFormsRadioCheckboxFeatures();
+@include oForms($opts: (
+	'elements': (
+		'text-area',
+		'radio-round'
+	)
+));
+
+@include oOverlay();
 
 @mixin centerForm {
 	max-width: 380px;
@@ -27,13 +33,13 @@
 			bottom: 200px;
 			margin-right: -39px;
 			padding-top: 2px;
-			color: oColorsGetPaletteColor('white');
-			background-color: oColorsGetPaletteColor('teal');
-			border: 1px solid oColorsGetPaletteColor('teal');
+			color: oColorsByName('white');
+			background-color: oColorsByName('teal');
+			border: 1px solid oColorsByName('teal');
 			// Forcing GPU acceleration to get the button working properly on IPad
 			// caused by a bug using fixed positioning along with safari web layer in App
 			transform: translate3d(0,0,0) rotate(-90deg);
-			@include oTypographySansBold(0);
+			@include oTypographySans($scale: 0, $weight: 'semibold');
 
 			span {
 				display: block;
@@ -71,13 +77,15 @@
 
 	.n-feedback__container {
 		display: block;
-		background: oColorsGetPaletteColor('white');
+		background: oColorsByName('white');
 		text-align: center;
 		padding: 1em;
 		margin: 0 10px;
 
 		.n-feedback__survey-trigger {
-			@include oButtons(default, primary);
+			@include oButtonsContent($opts: (
+				'type': 'primary'
+			));
 
 			span {
 				text-transform: lowercase;
@@ -91,8 +99,8 @@
 	}
 
 	.n-feedback__desktop__prompt {
-		@include oTypographySansBold(0);
-		margin-bottom: oTypographySpacingSize($units: 3);
+		@include oTypographySans($weight: 'semibold');
+		margin-bottom: oSpacingByName('s3');
 	}
 
 	.n-feedback__center-block {
@@ -112,9 +120,15 @@
 .feedback-overlay .o-overlay__content {
 	@include oTypographySans(0);
 	height: 100%;
+	// o-overlay v2.7.11 styles .o-overlay__content with `padding: 20px;`,
+	// o-overlay v3.0.0 styles .o-overlay__content with `oSpacingByName('s4')`, which evaluates to 16px,
+	// and so needs to be overwritten with below line to maintain padding of 20px.
+	padding: oSpacingByIncrement(5);
 
 	.n-feedback__primary-button {
-		@include oButtons(default, primary);
+		@include oButtonsContent($opts: (
+			'type': 'primary'
+		));
 	}
 
 	// Visually hide the feedback buttons (i.e. submit/back) when they are inactive.
@@ -133,6 +147,10 @@
 		}
 	}
 
+	.n-feedback__survey__wrapper-form {
+		margin: 0;
+	}
+
 	.n-feedback__question-header {
 		@include oTypographySans(0);
 		margin: 0 0 1em 0;
@@ -143,15 +161,25 @@
 	}
 
 	.n-feedback__question-text-entry {
-		textarea {
-			min-height: 126px;
-			resize: none;
+		padding-left: 10px;
+		padding-right: 10px;
+
+		.o-forms-field {
+			margin-bottom: 20px;
+			display: block;
+
+			textarea {
+				width: 100%;
+				min-height: 126px;
+				resize: none;
+				margin-top: 12px;
+			}
 		}
 	}
 
 	.n-feedback__question-radio {
-		border-top: 1px solid oColorsGetPaletteColor('slate');
-		border-bottom: 1px solid oColorsGetPaletteColor('slate');
+		border-top: 1px solid oColorsByName('slate');
+		border-bottom: 1px solid oColorsByName('slate');
 		border-left: none;
 		border-right: none;
 		padding: 1em 0 0.4em 0;
@@ -161,11 +189,8 @@
 		}
 
 		.n-feedback__question-radio__container {
-			@include oFormsGroup();
 			display: flex;
-			margin-top: 0;
-			margin-bottom: 0;
-			padding: 0 0 10px 10px;
+			padding: 0 10px 10px;
 
 			@include oGridRespondTo($until: M){
 				@include centerForm;
@@ -175,6 +200,14 @@
 		.n-feedback__question-radio__choice-container {
 			flex-grow: 1;
 			text-align: center;
+
+			.o-forms-field {
+				margin-bottom: 0;
+
+				.o-forms-input {
+					margin-top: 0;
+				}
+			}
 		}
 
 		label {
@@ -210,7 +243,7 @@
 
 .n-feedback__survey-block-finished {
 	.n-feedback__question-header::before {
-		@include oIconsGetIcon('tick', oColorsGetPaletteColor('black'), 48);
+		@include oIconsContent('tick', oColorsByName('black'), $size: 48);
 		content: '';
 		vertical-align: middle;
 	}

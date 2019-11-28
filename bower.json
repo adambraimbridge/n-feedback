@@ -11,11 +11,13 @@
   ],
   "main": "index.js",
   "dependencies": {
-    "n-ui-foundations": "^3.0.0",
-    "o-overlay": "^2.7.5",
-    "o-buttons": "^5.11.6",
-    "o-forms": "^6.0.0",
-    "o-loading": "^3.0.0",
-    "o-typography": "^5.9.0"
+    "o-buttons": "^6.0.0",
+    "o-forms": "^8.0.0",
+    "o-loading": "^4.0.0",
+    "o-overlay": "^3.0.0",
+    "o-typography": "^6.0.0"
+  },
+  "devDependencies": {
+    "n-ui-foundations": "4.0.0-beta.2"
   }
 }
