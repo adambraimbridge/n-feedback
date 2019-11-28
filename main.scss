@@ -6,7 +6,13 @@
 @import 'o-typography/main';
 @import 'o-loading/main';
 
-@include oForms();
+@include oForms($opts: (
+	'elements': (
+		'text-area',
+		'radio-round'
+	)
+));
+
 @include oOverlay();
 
 @mixin centerForm {
@@ -177,6 +183,7 @@
 			display: block;
 
 			textarea {
+				width: 100%;
 				min-height: 126px;
 				resize: none;
 				margin-top: 12px;
