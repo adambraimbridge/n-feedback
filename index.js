@@ -5,8 +5,8 @@ const getAdditionalInfo = require('./src/get-additional-info');
 const dictionary = require('./src/dictionary');
 
 function getSurveyData ( surveyId ){
-	// const surveyDataURL = 'http://local.ft.com:5005/public/survey.json'; // for local development
-	// const surveyDataURL = `http://local.ft.com:3002/v1/survey/${surveyId}`; // for local development via npm linking
+	// const surveyDataURL = 'http://localhost:5005/public/survey.json'; // for local development
+	// const surveyDataURL = `http://localhost:3002/v1/survey/${surveyId}`; // for local development via npm linking
 	const surveyDataURL = `https://www.ft.com/__feedback-api/v1/survey/${surveyId}`; // production link
 	return fetch(surveyDataURL, {
 		headers: {
@@ -19,8 +19,6 @@ function getSurveyData ( surveyId ){
 			});
 		}
 		return res.json();
-	}).catch( (err) => {
-		throw err;
 	});
 }
 

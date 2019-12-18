@@ -59,8 +59,7 @@
 		right: 42px;
 		bottom: 36px;
 		width: 300px;
-		height: 286px;
-		z-index: 1001!important;
+		height: 300px;
 	}
 
 	.n-feedback__desktop__prompt {
@@ -72,7 +71,6 @@
 @include oGridRespondTo($until: M){
 	.feedback-overlay {
 		top: 0;
-		z-index: 110;
 	}
 
 	.n-feedback__container {
@@ -139,8 +137,8 @@
 
 	.n-feedback__survey__close-button {
 		border-bottom: none;
-		margin-top: -10px;
-		margin-right: -10px;
+		margin-top: -8px;
+		margin-right: -8px;
 
 		span {
 			@include oNormaliseVisuallyHidden;
@@ -178,11 +176,10 @@
 	}
 
 	.n-feedback__question-radio {
-		border-top: 1px solid oColorsByName('slate');
-		border-bottom: 1px solid oColorsByName('slate');
+		border: 1px solid oColorsByName('slate');
 		border-left: none;
 		border-right: none;
-		padding: 1em 0 0.4em 0;
+		padding: 16px 0;
 
 		legend {
 			@include oNormaliseVisuallyHidden;
@@ -190,7 +187,6 @@
 
 		.n-feedback__question-radio__container {
 			display: flex;
-			padding: 0 10px 10px;
 
 			@include oGridRespondTo($until: M){
 				@include centerForm;
@@ -198,23 +194,30 @@
 		}
 
 		.n-feedback__question-radio__choice-container {
-			flex-grow: 1;
-			text-align: center;
+			width: 20%;
 
-			.o-forms-field {
-				margin-bottom: 0;
-
-				.o-forms-input {
-					margin-top: 0;
-				}
+			.o-forms-field,
+			.o-forms-input {
+				margin: 0;
 			}
 		}
 
+		// Force the input and label into a vertical orientation
 		label {
+			display: block;
+			padding-left: 0;
+
+			&:before,
+			&:after {
+				left: 50%;
+				transform: translateX(-50%);
+				margin-left: 0; // this is for the selected state
+			}
+
 			span {
 				display: block;
-				margin-left: -50px;
 				margin-top: 30px;
+				text-align: center;
 			}
 		}
 
