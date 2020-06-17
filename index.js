@@ -156,7 +156,7 @@ function populateContainer (container, domain) {
 		<p class="n-feedback__desktop__prompt">
 			${text}
 		</p>
-		<button class="n-feedback__survey-trigger" data-trackable="feedback-start">
+		<button class="n-feedback__survey-trigger" aria-label="Give feedback on the Financial Times website" data-trackable="feedback-start">
 			<span>Feedback</span>
 		</button>`;
 }

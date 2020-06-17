@@ -12,7 +12,7 @@ function getAdditionalInfo (appInfo) {
 		domain
 	} = appInfo;
 
-		const additionalInfo = {
+	const additionalInfo = {
 		// TODO: Once Page Kit has been rolled out across all apps, this appInfo.name bit should be removed.
 		appName: appName || appInfo.name,
 		currentUrl,
