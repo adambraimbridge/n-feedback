@@ -37,34 +37,27 @@ function buildMultipleChoiceQuestion (question) {
 	const html = [
 		`<fieldset class="n-feedback__question-radio" data-validation=${validation}>
 			<legend>${question.questionText}</legend>
-			<div class="n-feedback__question-radio__container n-feedback__center-block">`
+			<div class="n-feedback__center-block">
+			<div class="o-forms-field">
+			`,
 	]; // fieldsets can't display: flex
 
 	const choices = Object.entries(question.choices).reverse();
 
-	choices.forEach( ([choiceId, choice], current, choices) => {
-		let textVisibility = '';
-		// if not the first or the last element
-		if ( !(choiceId === choices[0][0] || choiceId === choices[choices.length-1][0]) ) {
-			textVisibility = 'hidden-label';
-		}
+	choices.forEach( ([choiceId, choice]) => {
 		const fieldId = `choice-${choiceId}-${~~(Math.random()*0xffff)}`;
-
-		html.push(
-			`<div class="n-feedback__question-radio__choice-container">
-				<div class="o-forms-field">
-					<div class="o-forms-input o-forms-input--radio-round o-forms-input--inline">
-						<input type="radio" id="${fieldId}" name="${question.questionId}" value="${choiceId}" />
-						<label for="${fieldId}" class="o-forms-input__label ${textVisibility}">
-							<span class="n-feedback__question-radio-text">${choice.choiceText}</span>
-						</label>
-					</div>
-				</div>
-			</div>`
+		html.push(`
+			<div class="o-forms-input o-forms-input--radio-round">
+				<input type="radio" id="${fieldId}" name="${question.questionId}" value="${choiceId}" />
+				<label for="${fieldId}" class="o-forms-input__label">
+					${choice.choiceText}
+				</label>
+			</div>
+			`
 		);
 	});
 
-	html.push('</div></fieldset>');
+	html.push('</div></div></fieldset>');
 	return html.join('\n');
 }
 
@@ -79,13 +72,14 @@ function buildTextEntryQuestion (question) {
 						<span class="o-forms-title">
 							<span class="o-forms-title__main">${question.questionText}</span>
 						</span>
-						<span class="o-forms-input o-forms-input--textarea">
-							<textarea id="${fieldId}" name="${question.questionId}"></textarea>
-						</span>
+						<div class="o-forms-input o-forms-input--textarea">
+							<textarea id="${fieldId}" name="${question.questionId}" rows="8"></textarea>
+						</div>
 					</label>
 				</div>
 			</div>
-		</div>`;
+		</div>
+		`;
 
 	return html;
 }

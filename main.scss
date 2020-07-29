@@ -8,7 +8,7 @@
 
 @include oForms($opts: (
 	'elements': (
-		'text-area',
+		'textarea',
 		'radio-round'
 	)
 ));
@@ -59,7 +59,9 @@
 		right: 42px;
 		bottom: 36px;
 		width: 300px;
-		height: 300px;
+		height: 390px;
+		// Height of the viewport minus the padding on top and bottom.
+		max-height: calc(100vh - 72px);
 	}
 
 	.n-feedback__desktop__prompt {
@@ -159,18 +161,12 @@
 	}
 
 	.n-feedback__question-text-entry {
-		padding-left: 10px;
-		padding-right: 10px;
-
 		.o-forms-field {
 			margin-bottom: 20px;
 			display: block;
 
 			textarea {
-				width: 100%;
-				min-height: 126px;
-				resize: none;
-				margin-top: 12px;
+				max-height: 240px;
 			}
 		}
 	}
@@ -179,49 +175,17 @@
 		border: 1px solid oColorsByName('slate');
 		border-left: none;
 		border-right: none;
-		padding: 16px 0;
+		padding: 4px 0;
+
+		// Adjust the spacing slightly so the radios take up less space.
+		.o-forms-field {
+			margin-bottom: 10px;
+		}
+		.o-forms-input {
+			margin-top: 10px;
+		}
 
 		legend {
-			@include oNormaliseVisuallyHidden;
-		}
-
-		.n-feedback__question-radio__container {
-			display: flex;
-
-			@include oGridRespondTo($until: M){
-				@include centerForm;
-			}
-		}
-
-		.n-feedback__question-radio__choice-container {
-			width: 20%;
-
-			.o-forms-field,
-			.o-forms-input {
-				margin: 0;
-			}
-		}
-
-		// Force the input and label into a vertical orientation
-		label {
-			display: block;
-			padding-left: 0;
-
-			&:before,
-			&:after {
-				left: 50%;
-				transform: translateX(-50%);
-				margin-left: 0; // this is for the selected state
-			}
-
-			span {
-				display: block;
-				margin-top: 30px;
-				text-align: center;
-			}
-		}
-
-		.hidden-label span {
 			@include oNormaliseVisuallyHidden;
 		}
 	}
